@@ -6,17 +6,13 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/15 14:09:02 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:02:30 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include "../MLX42/include/MLX42/MLX42.h"
-
 #define WIDTH 512
 #define HEIGHT 512
+#include "cube.h"
 
 static mlx_image_t* image;
 
@@ -63,11 +59,14 @@ void ft_hook(void* param)
 
 // -----------------------------------------------------------------------------
 
-int32_t main(int32_t argc, const char* argv[])
+int32_t main(int32_t argc, char **argv)
 {
 	mlx_t* mlx;
+	t_general general;
 	(void)argc;
-	(void)argv;
+
+	fill_map_struct(&general, argv);
+	printf("line == %d\n", general.map->line);
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{

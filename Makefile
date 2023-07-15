@@ -3,25 +3,33 @@ CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= /Users/$$USER/Desktop/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$$USER/.brew/opt/glfw/lib/" -pthread -lm
-SRCS	:= main.c
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$$USER/.brew/opt/glfw/lib/" \
+			-pthread -lm \
+			get_next_line/gnl.a Libft/libft.a
+SRCS	:= main.c map_parsing.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+# libmlx:
+# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(OBJS)
+	$(MAKE) -C Libft
+	$(MAKE) -C get_next_line
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
+	$(MAKE) clean -C Libft
+	$(MAKE) clean -C get_next_line
 	@rm -rf $(OBJS)
 
 fclean: clean
+	$(MAKE) fclean -C Libft
+	$(MAKE) fclean -C get_next_line
 	@rm -rf $(NAME)
 
 re: clean all
