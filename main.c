@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/15 17:02:30 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/16 13:53:16 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int32_t main(int32_t argc, char **argv)
 	(void)argc;
 
 	fill_map_struct(&general, argv);
-	printf("line == %d\n", general.map->line);
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
