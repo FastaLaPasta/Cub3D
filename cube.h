@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cube.h                                             :+:      :+:    :+:   */
+/*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/15 17:04:21 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/16 12:20:57 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CUBE_H
+#ifndef CUBE_H
 # define CUBE_H
 # include <math.h>
 # include <unistd.h>
@@ -21,7 +21,7 @@
 # include "get_next_line/get_next_line.h"
 # include "Libft/libft.h"
 
-typedef	struct	s_map
+typedef struct s_map
 {
 	int		column;
 	int		line;
