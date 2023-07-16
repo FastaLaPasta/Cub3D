@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/16 14:08:52 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:20:39 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	fill_map_texture(t_general *general, char *line)
 {
 	int		i;
-	char	**splt;
+	// char	**splt;
 
 	i = 0;
 	(void)general;
@@ -30,9 +30,9 @@ int	fill_map_texture(t_general *general, char *line)
 			|| ft_strncmp(line + i, "F ", 2) == 0
 			|| ft_strncmp(line + i, "C ", 2) == 0 )
 		{
-			splt = ft_split(line + i, ' ');
-			if (splt[1] == NULL)
-				return (2);
+			// splt = ft_split(line + i, ' ');
+			// if (splt[1] == NULL)
+			// 	return (2);
 			if (ft_strncmp(line + i, "NO ", 3) == 0)
 			{
 				return (0);
@@ -63,7 +63,7 @@ int	fill_map_texture(t_general *general, char *line)
 				return (0);
 				//general->map_texture->ea = mlx_load_png(splt[1]);
 			}
-			free(splt);
+			// free(splt);
 		}
 		return(1);
 	}
@@ -99,12 +99,12 @@ int	fill_map(t_general *general, char *path)
 	i = 0;
 	fd = open(path, O_RDWR);
 	line = get_next_line(fd);
-	general->map->map = ft_calloc(general->map->line, sizeof(char *) + 1);
+	general->map.map = ft_calloc(general->map.line + 1, sizeof(char *));
 	while (line != NULL)
 	{
 		if (fill_map_texture(general, line) == 1)
 		{
-			general->map->map[i] = line;
+			general->map.map[i] = line;
 			i++;
 		}
 		else
@@ -112,18 +112,15 @@ int	fill_map(t_general *general, char *path)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	general->map->map[i] = NULL;
+	general->map.map[i] = NULL;
 	return (0);
 }
 
 void	fill_map_struct(t_general *general, char **argv)
 {
-	t_map			map;
-	t_map_texture	m_texture;
 
-	general->map = &map;
-	general->map_texture = &m_texture;
-	general->map->line = count_line(general, argv[1]);
+
+	general->map.line = count_line(general, argv[1]);
 	fill_map(general, argv[1]);
 	// for (int i = 0; general->map->map[i]; i++)
 	// 	printf("%s", general->map->map[i]);
