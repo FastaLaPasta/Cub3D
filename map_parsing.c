@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/15 17:24:44 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/16 12:43:54 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	fill_map_texture(t_general *general, char *line)
+int	fill_map_texture(t_general *general, char *line)
 {
-	int	i;
+	int		i;
+	char	**splt;
 
 	i = 0;
 	(void)general;
@@ -22,27 +23,32 @@ void	fill_map_texture(t_general *general, char *line)
 		i++;
 	if (line[i] != '\0')
 	{
+		splt = ft_split(line + i, ' ');
+		if (splt[1] == NULL)
+			return (1);
 		if (ft_strncmp(line + i, "NO", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
 		{
-			printf("no\n");
-			//general->map_texture->no = mlx_load_png(line);
+			printf("%s", splt[1]);
+			//general->map_texture->no = mlx_load_png(splt[1]);
 		}
 		if (ft_strncmp(line + i, "SO", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
 		{
-			printf("so\n");
-			//general->map_texture->so = mlx_load_png(line);
+			printf("%s", splt[1]);
+			//general->map_texture->so = mlx_load_png(splt[1]);
 		}
 		if (ft_strncmp(line + i, "WE", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
 		{
-			printf("we\n");
-			//general->map_texture->we = mlx_load_png(line);
+			printf("%s", splt[1]);
+			//general->map_texture->we = mlx_load_png(splt[1]);
 		}
 		if (ft_strncmp(line + i, "EA", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
 		{
-			printf("ea\n");
-			//general->map_texture->ea = mlx_load_png(line);
+			printf("%s", splt[1]);
+			//general->map_texture->ea = mlx_load_png(splt[1]);
 		}
+		free(splt);
 	}
+	return (0);
 }
 
 int	count_line(t_general *general, char *path)
@@ -67,8 +73,10 @@ int	count_line(t_general *general, char *path)
 
 void	fill_map_struct(t_general *general, char **argv)
 {
-	t_map map;
+	t_map			map;
+	t_map_texture	m_texture;
 
 	general->map = &map;
+	general->map_texture = &m_texture;
 	general->map->line = count_line(general, argv[1]);
 }
