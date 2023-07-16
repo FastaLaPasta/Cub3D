@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 14:20:51 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/02/03 15:33:47 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:17:58 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	split_number(int n, int fd)
 	ft_putchar_fd(n % 10 + '0', fd);
 }
 
-void	ft_putnbr_fd(int n)
+void	ft_putnbr_fd(int n, int fd)
 {
 	unsigned int	i;
 
