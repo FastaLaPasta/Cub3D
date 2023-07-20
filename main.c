@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/20 12:43:07 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:49:57 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ int32_t main(int32_t argc, char **argv)
 	mlx_t* mlx;
 	t_map map;
 
-	fill_map_struct(&map, argv);
+	if (fill_map_struct(&map, argv) == 1)
+	{
+		printf("ICI\n");
+		return (1);
+	}
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
@@ -91,6 +95,6 @@ int32_t main(int32_t argc, char **argv)
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	system("leaks Game");
+	//system("leaks Game");
 	return (EXIT_SUCCESS);
 }
