@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/20 13:49:57 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:04:58 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void ft_randomize(void* param)
 			// 	rand() % 0xFF, // B
 			// 	rand() % 0xFF  // A
 			// );
-			mlx_put_pixel(image, i, y, 10181375);
+			mlx_put_pixel(image, i, y, -1228952577);
 		}
 	}
 }
@@ -48,13 +48,13 @@ void ft_hook(void* param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
+		image->instances[0].y -= 15;
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
+		image->instances[0].y += 15;
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
+		image->instances[0].x -= 15;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
+		image->instances[0].x += 15;
 }
 
 //-----------------------------------------------------------------------------
@@ -67,10 +67,7 @@ int32_t main(int32_t argc, char **argv)
 	t_map map;
 
 	if (fill_map_struct(&map, argv) == 1)
-	{
-		printf("ICI\n");
 		return (1);
-	}
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
