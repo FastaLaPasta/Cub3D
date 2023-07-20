@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/20 12:21:21 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:36:30 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <stdbool.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
@@ -33,7 +34,7 @@ typedef struct s_map
 	int		line;	
 }	t_map;
 
-void	fill_map_struct(t_map *map, char **argv);
+int		fill_map_struct(t_map *map, char **argv);
 char	**fill_map(t_map *gen, char *path);
 char	**creat_map(char *line, char **map);
 void	ft_freemap(t_map *map);
@@ -46,4 +47,5 @@ int		fill_map_texture(t_map *map, int fd);
 int		choose_texture(t_map *map, char **line);
 int		choose_color(char **line);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_exten(char *f, char *ex);
 #endif

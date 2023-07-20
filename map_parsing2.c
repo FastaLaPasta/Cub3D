@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:08 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/19 15:34:47 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:48:57 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	choose_color(char **line)
 
 int	choose_texture(t_map *map, char **line)
 {
-
 	if (ft_strcmp(line[0], "NO") == 0)
 		map->no = ft_strdup(line[1]);
 	else if (ft_strcmp(line[0], "SO") == 0)
@@ -61,6 +60,9 @@ int	fill_map_texture(t_map *map, int fd)
 		{
 			linenl = ft_strdup2(line);
 			splt = ft_split(linenl, ' ');
+			if (nb_parsed < 4)
+				if (ft_exten(splt[1], ".png") == 1)
+					return (2);
 			choose_texture(map, splt);
 			free(linenl);
 			ft_freedchar(splt);
