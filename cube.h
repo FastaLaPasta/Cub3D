@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/20 12:21:21 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/20 14:04:13 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ typedef struct s_map
 	int		line;	
 }	t_map;
 
-void	fill_map_struct(t_map *map, char **argv);
+typedef struct s_gen
+{
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	struct s_map	*map;
+}	t_gen;
+
+t_map	*fill_map_struct(t_map *map, char **argv);
 char	**fill_map(t_map *gen, char *path);
 char	**creat_map(char *line, char **map);
 void	ft_freemap(t_map *map);
@@ -46,4 +53,8 @@ int		fill_map_texture(t_map *map, int fd);
 int		choose_texture(t_map *map, char **line);
 int		choose_color(char **line);
 int		ft_strcmp(char *s1, char *s2);
+
+/*Print la map en 2D*/
+void	print_2d_map(t_gen *gen);
+
 #endif
