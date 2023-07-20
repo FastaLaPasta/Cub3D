@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cube.h                                             :+:      :+:    :+:   */
+/*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/15 17:04:21 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:21:21 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	CUBE_H
+#ifndef CUBE_H
 # define CUBE_H
 # include <math.h>
 # include <unistd.h>
@@ -21,29 +21,29 @@
 # include "get_next_line/get_next_line.h"
 # include "Libft/libft.h"
 
-typedef	struct	s_map
+typedef struct s_map
 {
-	int		column;
-	int		line;
-	int		*rgb;
 	char	**map;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		f;
+	int		c;
+	int		line;	
 }	t_map;
 
-typedef struct s_map_texture
-{
-	mlx_texture_t	*no;
-	mlx_texture_t	*so;
-	mlx_texture_t	*we;
-	mlx_texture_t	*ea;
-}	t_map_texture;
-
-typedef struct s_general
-{
-	t_map			*map;
-	t_map_texture	*map_texture;
-}	t_general;
-
-int		count_line(t_general *general, char *path);
-void	fill_map_struct(t_general *general, char **argv);
-
+void	fill_map_struct(t_map *map, char **argv);
+char	**fill_map(t_map *gen, char *path);
+char	**creat_map(char *line, char **map);
+void	ft_freemap(t_map *map);
+void	init_struct(t_map *map);
+int		get_rgba(int r, int g, int b, int a);
+void	ft_freedchar(char **p);
+int		ft_strlentab(char **str);
+char	*ft_strdup2(char *s1);
+int		fill_map_texture(t_map *map, int fd);
+int		choose_texture(t_map *map, char **line);
+int		choose_color(char **line);
+int		ft_strcmp(char *s1, char *s2);
 #endif

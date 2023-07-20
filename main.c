@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/15 17:02:30 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:43:07 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void ft_randomize(void* param)
 	{
 		for (uint32_t y = 0; y < image->height; ++y)
 		{
-			uint32_t color = ft_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
-			);
-			mlx_put_pixel(image, i, y, color);
+			// uint32_t color = ft_pixel(
+			// 	rand() % 0xFF, // R
+			// 	rand() % 0xFF, // G
+			// 	rand() % 0xFF, // B
+			// 	rand() % 0xFF  // A
+			// );
+			mlx_put_pixel(image, i, y, 10181375);
 		}
 	}
 }
@@ -57,16 +57,16 @@ void ft_hook(void* param)
 		image->instances[0].x += 5;
 }
 
-// -----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 int32_t main(int32_t argc, char **argv)
 {
-	mlx_t* mlx;
-	t_general general;
+	(void)argv;
 	(void)argc;
+	mlx_t* mlx;
+	t_map map;
 
-	fill_map_struct(&general, argv);
-	printf("line == %d\n", general.map->line);
+	fill_map_struct(&map, argv);
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
@@ -91,5 +91,6 @@ int32_t main(int32_t argc, char **argv)
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
+	system("leaks Game");
 	return (EXIT_SUCCESS);
 }

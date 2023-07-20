@@ -6,69 +6,85 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/15 17:24:44 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:34:25 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	fill_map_texture(t_general *general, char *line)
+void	ft_freemap(t_map *map)
 {
-	int	i;
-
-	i = 0;
-	(void)general;
-	while ((line[i] >= 9 && line[i] <= 13) || line[i] == 32)
-		i++;
-	if (line[i] != '\0')
-	{
-		if (ft_strncmp(line + i, "NO", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
-		{
-			printf("no\n");
-			//general->map_texture->no = mlx_load_png(line);
-		}
-		if (ft_strncmp(line + i, "SO", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
-		{
-			printf("so\n");
-			//general->map_texture->so = mlx_load_png(line);
-		}
-		if (ft_strncmp(line + i, "WE", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
-		{
-			printf("we\n");
-			//general->map_texture->we = mlx_load_png(line);
-		}
-		if (ft_strncmp(line + i, "EA", 2) == 0 && ft_isalnum(line[i + 2]) == 0)
-		{
-			printf("ea\n");
-			//general->map_texture->ea = mlx_load_png(line);
-		}
-	}
+	ft_freedchar(map->map);
+	free(map->no);
+	free(map->so);
+	free(map->we);
+	free(map->ea);
 }
 
-int	count_line(t_general *general, char *path)
+char	**creat_map(char *line, char **map)
 {
-	int		nbr_of_line;
+	char	**tmp;
+	int		i;
+
+	tmp = malloc(sizeof(char *) * (ft_strlentab(map) + 2));
+	if (map == NULL)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		tmp[i] = map[i];
+		i++;
+	}
+	tmp[i] = ft_strdup2(line);
+	tmp[i][ft_strlen(tmp[i])] = '\0';
+	i++;
+	tmp[i] = NULL;
+	free(map);
+	return (tmp);
+}
+
+char	**fill_map(t_map *gen, char *path)
+{
 	int		fd;
 	char	*line;
+	char	**map;
 
 	fd = open(path, O_RDWR);
-	nbr_of_line = 0;
+	if (fd == -1)
+		return (NULL);
+	map = malloc(sizeof(char *));
+	map[0] = NULL;
+	if (fill_map_texture(gen, fd) == 2)
+		return (0);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		fill_map_texture(general, line);
+		if (line[0] != '\n')
+			map = creat_map(line, map);
 		free(line);
-		nbr_of_line++;
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (nbr_of_line);
+	return (map);
 }
 
-void	fill_map_struct(t_general *general, char **argv)
+void	fill_map_struct(t_map *map, char **argv)
 {
-	t_map map;
+	int i = 0;
 
-	general->map = &map;
-	general->map->line = count_line(general, argv[1]);
+	if (map == NULL)
+		init_struct(map);
+	map->map = fill_map(map, argv[1]);
+	printf("NO=%s=\n", map->no);
+	printf("SO=%s=\n", map->so);
+	printf("WE=%s=\n", map->we);
+	printf("EA=%s=\n", map->ea);
+	printf("F=%d=\n", map->f);
+	printf("C=%d=\n", map->c);
+	while (map->map[i])
+	{
+		printf("%s\n", map->map[i]);
+		i++;
+	}
+	ft_freemap(map);
 }
