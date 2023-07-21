@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:23 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/20 14:32:17 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:12:53 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,14 @@ int	get_rgba(int r, int g, int b, int a)
 }
 void	init_struct(t_map *map)
 {
-	ft_bzero(&map, sizeof(map));
+	map->c = -1;
+	map->f = -1;
+	map->no = NULL;
+	map->so = NULL;
+	map->we = NULL;
+	map->ea = NULL;
+	map->line = 0;	
+	map->map = NULL;
 }
 int	ft_strcmp(char *s1, char *s2)
 {

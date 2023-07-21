@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:08 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/20 14:55:41 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/21 13:28:04 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,37 @@ int	choose_color(char **line)
 
 int	choose_texture(t_map *map, char **line)
 {
-	if (ft_strcmp(line[0], "F") == 0)
+	if (!line[1])
+		return (write(2, "Missing Mandatory Data !\n", 26), 1);
+	if (ft_strcmp(line[0], "F") == 0 && map->f == -1)
 		map->f = choose_color(line);
-	else if (ft_strcmp(line[0], "C") == 0)
+	else if (ft_strcmp(line[0], "C") == 0 && map->c == -1)
 		map->c = choose_color(line);
 	else if (ft_exten(line[1], ".png") == 1)
 		return (1);
-	else if (ft_strcmp(line[0], "NO") == 0)
+	else if (ft_strcmp(line[0], "NO") == 0 && map->no == NULL)
 		map->no = ft_strdup(line[1]);
-	else if (ft_strcmp(line[0], "SO") == 0)
+	else if (ft_strcmp(line[0], "SO") == 0 && !map->so)
 		map->so = ft_strdup(line[1]);
-	else if (ft_strcmp(line[0], "WE") == 0)
+	else if (ft_strcmp(line[0], "WE") == 0 && !map->we)
 		map->we = ft_strdup(line[1]);
-	else if (ft_strcmp(line[0], "EA") == 0)
+	else if (ft_strcmp(line[0], "EA") == 0 && !map->ea)
 		map->ea = ft_strdup(line[1]);
 	else
-		return (fprintf(stderr, "NON\n"), 1);
+		return (write(2, "probleme de fichier map !\n", 27), 1);
 	return (0);
 }
+void ft_endoffile(int fd)
+{
+	char *buf;
 
+	buf = get_next_line(fd);	
+	while (buf != NULL)
+	{
+		free(buf);
+		buf = get_next_line(fd);
+	}
+}
 int	fill_map_texture(t_map *map, int fd)
 {
 	char	**splt;
@@ -66,6 +78,8 @@ int	fill_map_texture(t_map *map, int fd)
 			splt = ft_split(linenl, ' ');
 			if (choose_texture(map, splt) == 1)
 			{
+				free(line);
+				ft_endoffile(fd);
 				free(linenl);
 				ft_freedchar(splt);
 				return (2);
