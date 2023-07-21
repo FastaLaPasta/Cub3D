@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/20 14:04:13 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/21 12:49:15 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,21 @@ typedef struct s_map
 	int		line;	
 }	t_map;
 
+typedef struct s_img
+{
+	mlx_image_t	*wall_2d;
+	mlx_image_t	*flour_2d;
+	mlx_image_t	*rambo_2d;
+}	t_img;
+
+
 typedef struct s_gen
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
 	struct s_map	*map;
+	t_img			*img;
+	
 }	t_gen;
 
 t_map	*fill_map_struct(t_map *map, char **argv);
