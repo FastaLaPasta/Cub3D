@@ -1,0 +1,91 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   verif_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/26 12:33:44 by jgiampor          #+#    #+#             */
+/*   Updated: 2023/07/26 16:17:19 by jgiampor         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cube.h"
+
+int	ft_caravalid(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '0' || c == '1')
+		return (0);
+	return (1);
+}
+
+void	ft_mapadd2(char **map)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (map[x] != NULL)
+	{
+		y = 0;
+		while (map[x][y] != '\0')
+		{
+			if (ft_caravalid(map[x][y]) == 1)
+			{
+				if (map[x][y] == ' ')
+					map[x][y] = '2';
+			}
+			y++;
+		}
+		x++;
+	}
+}
+
+int	mustlligne(char **map)
+{
+	int	l;
+	int	i;
+	int	x;
+
+	i = 0;
+	l = 0;
+	while (map[i] != NULL)
+	{
+		x = ft_strlen(map[i]);
+		if (x > l)
+			l = x;
+		i++;
+	}
+	return (l);
+}
+
+void	ft_safemap(t_map *map)
+{
+	int		i;
+	int		m;
+	int		j;
+
+	j = 0;
+	m = mustlligne(map->map);
+	map->safe = malloc(sizeof(char *) * (map->line + 3));
+	if (!map->safe)
+		return ;
+	i = 0;
+	while (i < map->line + 2)
+	{
+		map->safe[i] = malloc(sizeof(char) * (m + 3));
+		if (!map->safe[i])
+			return ;
+		map->safe[i] = ft_memset(map->safe[i], '=', m + 2);
+		map->safe[i][m + 2] = '\0';
+		if (i > 0 && i < map->line + 1)
+		{
+			ft_strlcpynon(map->safe[i], map->map[j], -1);
+			j++;
+		}
+		printf("%s\n", map->safe[i]);
+		i++;
+	}
+	map->safe[map->line + 2] = NULL;
+}

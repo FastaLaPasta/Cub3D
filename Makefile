@@ -4,7 +4,7 @@ LIBMLX	:= /Users/$$USER/Desktop/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= get_next_line/gnl.a Libft/libft.a
-SRCS	:= main.c map_parsing.c map_parsing2.c utils.c
+SRCS	:= main.c map_parsing.c map_parsing2.c utils.c verif_map.c err.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)

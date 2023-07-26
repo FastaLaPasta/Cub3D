@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/20 13:36:30 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:16:31 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 typedef struct s_map
 {
 	char	**map;
+	char	**safe;
 	char	*no;
 	char	*so;
 	char	*we;
@@ -48,4 +49,11 @@ int		choose_texture(t_map *map, char **line);
 int		choose_color(char **line);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_exten(char *f, char *ex);
+void	ft_mapadd2(char **map);
+int		ft_caravalid(char c);
+int		ft_structmapverif(t_map *map);
+void	ft_freemap(t_map *map);
+void	ft_freedchar(char **p);
+void	ft_safemap(t_map *map);
+
 #endif

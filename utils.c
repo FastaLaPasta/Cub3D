@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:23 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/21 13:12:53 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:29:24 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,11 @@ int	ft_strlentab(char **str)
 	return (i);
 }
 
-void	ft_freedchar(char **p)
-{
-	int	i;
-
-	i = 0;
-	while (p[i] != NULL)
-	{
-		free(p[i]);
-		i++;
-	}
-	free(p);
-}
-
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
+
 void	init_struct(t_map *map)
 {
 	map->c = -1;
@@ -68,9 +56,11 @@ void	init_struct(t_map *map)
 	map->so = NULL;
 	map->we = NULL;
 	map->ea = NULL;
-	map->line = 0;	
+	map->line = 0;
 	map->map = NULL;
+	map->safe = NULL;
 }
+
 int	ft_strcmp(char *s1, char *s2)
 {
 	unsigned int	i;
