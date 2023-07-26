@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/23 14:22:06 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:21:22 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "Libft/libft.h"
+# define PI 3.1415926535
 
 typedef struct s_map
 {
@@ -47,8 +48,11 @@ typedef struct s_gen
 	mlx_image_t		*image;
 	struct s_map	*map;
 	t_img			*img;
-	float			x;
-	float			y;
+	float			px;
+	float			py;
+	float			delta_x;
+	float			delta_y;
+	float			angle;
 }	t_gen;
 
 t_map	*fill_map_struct(t_map *map, char **argv);

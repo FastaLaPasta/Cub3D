@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:08:39 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/23 16:08:49 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:12:41 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	create_image(t_gen *gen, t_img *img)
 {
 	img->flour_2d = mlx_new_image(gen->mlx, 32, 32);
 	img->wall_2d = mlx_new_image(gen->mlx, 32, 32);
-	img->rambo_2d = mlx_new_image(gen->mlx, 32, 32);
+	// img->rambo_2d = mlx_new_image(gen->mlx, 32, 4);
 	for (uint32_t i = 0; i < img->flour_2d->width; ++i)
 	{
 		for (uint32_t y = 0; y < img->flour_2d->height; ++y)
@@ -27,11 +27,11 @@ void	create_image(t_gen *gen, t_img *img)
 		for (uint32_t y = 0; y < img->wall_2d->height; ++y)
 			mlx_put_pixel(img->wall_2d, i, y, 3289750);
 	}
-	for (uint32_t i = 0; i < img->rambo_2d->width; ++i)
-	{
-		for (uint32_t y = 0; y < img->rambo_2d->height; ++y)
-			mlx_put_pixel(img->rambo_2d, i, y, 1671160);
-	}
+	// for (uint32_t i = 0; i < img->rambo_2d->width; ++i)
+	// {
+	// 	for (uint32_t y = 0; y < img->rambo_2d->height; ++y)
+	// 		mlx_put_pixel(gen->image, i, y, 1671160);
+	// }
 }
 
 t_img	*print_2d_map(t_gen *gen, t_img *img)
@@ -51,9 +51,8 @@ t_img	*print_2d_map(t_gen *gen, t_img *img)
 		else if (gen->map->map[y][x] == 'N')
 		{
 			mlx_image_to_window(gen->mlx, img->flour_2d, x*32, y*32);
-			mlx_image_to_window(gen->mlx, img->rambo_2d, x*32, y*32);
-			gen->x = x * 32;
-			gen->y = y * 32;
+			gen->px = x * 32;
+			gen->py = y * 32;
 		}
 		x++;
 		if (gen->map->map[y][x] == '\0')
