@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/27 17:07:46 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:24:33 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	init(t_gen *gen)
 	gen->delta_y = sin(gen->angle);
 }
 
-int draw_line(t_gen *gen, int beginX, int beginY, int endX, int endY)
+int draw_line(t_gen *gen, float beginX, float beginY, float endX, float endY)
 {
 	double deltaX;
 	double deltaY;
-	int pixels;
+	float pixels;
 
 	// direction of the line
 	deltaX = endX - beginX; // 10
@@ -36,7 +36,7 @@ int draw_line(t_gen *gen, int beginX, int beginY, int endX, int endY)
 	deltaY /= pixels; // 0
 	while (pixels)
 	{
-		if (gen->map->map[beginY / 32][beginX / 32] != '1')
+		if (gen->map->map[(int)beginY / 32][(int)beginX / 32] != '1')
 			mlx_put_pixel(gen->image, beginX, beginY, 0xFF00FFFF);
 		else
 			break;
@@ -60,7 +60,8 @@ void	ft_hook(void* param)
 		for (uint32_t y = 0; y < 720; ++y)
 			mlx_put_pixel(general->image, i, y, 0xFF000000);
 	}
-		draw_line(general, general->px + 8, general->py, general->px + 8, 0 );
+	for (int j = general->py - 64; j < general->py+64 ; j++)
+		draw_line(general, general->px + 8, general->py, j * 4, 0);
 	for (uint32_t i = 0; i < 16; ++i)
 	{
 		for (uint32_t y = 0; y < 16; ++y)
