@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/20 14:26:11 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:30:09 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ char	**fill_map(t_map *gen, char *path)
 			map = creat_map(line, map);
 		}
 		free(line);
-		
 		line = get_next_line(fd);
 	}
 	gen->line = i;

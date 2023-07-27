@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/26 16:21:22 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:58:50 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "get_next_line/get_next_line.h"
 # include "Libft/libft.h"
 # define PI 3.1415926535
+# define DR 0.0174533
 
 typedef struct s_map
 {
@@ -53,6 +54,7 @@ typedef struct s_gen
 	float			delta_x;
 	float			delta_y;
 	float			angle;
+	float			ra;
 }	t_gen;
 
 t_map	*fill_map_struct(t_map *map, char **argv);

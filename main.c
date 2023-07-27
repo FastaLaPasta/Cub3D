@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/26 16:23:06 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:03:28 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,71 +17,92 @@
 void	init(t_gen *gen)
 {
 	gen->angle = PI/2;
+	gen->delta_x = cos(gen->angle);
+	gen->delta_y = sin(gen->angle);
 }
 
-// int	cam(t_gen *gen)
-// {
-// 	double posX = gen->img->rambo_2d->instances->x, posY = gen->img->rambo_2d->instances->y;  //x and y start position
-// 	double dirX = -1, dirY = 0; //initial direction vector
-// 	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
-// 	double time = 0; //time of current frame
-// 	double oldTime = 0; //time of previous frame
-// 	for(int x = 0; x < w; x++)
-//     {
-//       //calculate ray position and direction
-//       double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
-//       double rayDirX = dirX + planeX * cameraX;
-//       double rayDirY = dirY + planeY * cameraX;
-// 	}
-// }
+int draw_line(t_gen *gen, int beginX, int beginY, int endX, int endY)
+{
+	double deltaX;
+	double deltaY;
+	int pixels;
+
+	// direction of the line
+	deltaX = endX - beginX; // 10
+	deltaY = endY - beginY; // 0
+	// Max pixels to draw
+	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+	deltaX /= pixels; // 1
+	deltaY /= pixels; // 0
+	while (pixels)
+	{
+		if (gen->map->map[beginY / 32][beginX / 32] != '1')
+			mlx_put_pixel(gen->image, beginX, beginY, 0xFF00FFFF);
+		else
+			break;
+		beginX += deltaX;
+		beginY += deltaY;
+		--pixels;
+	}
+	return (0);
+}
 
 void	ft_hook(void* param)
 {
 	t_gen	*general;
-	// int		x;
-	// int		y;
 	
 	general = param;
-	// printf("%u === %u\n", general->px, general->py);
+
+	//Draw the Personnage and the background to erase and recreate it
+
 	for (uint32_t i = 0; i < 1080; ++i)
 	{
 		for (uint32_t y = 0; y < 720; ++y)
 			mlx_put_pixel(general->image, i, y, 0xFF000000);
 	}
-	for (uint32_t i = 0; i < 50; ++i)
+	for (int j = 0; j < 720; j++)
 	{
-		for (uint32_t y = 0; y < 10; ++y)
+		draw_line(general, general->px + 8, general->py, j*32, 0 );
+	}
+	for (uint32_t i = 0; i < 16; ++i)
+	{
+		for (uint32_t y = 0; y < 16; ++y)
 			mlx_put_pixel(general->image, general->px + i, general->py + y, 1671160);
 	}
-	// x = (general->img->rambo_2d->instances[0].x +16) / 32;
-	// y = (general->img->rambo_2d->instances[0].y +16) / 32;
+
+	//Events on KeyPress, moove, quit and cam
+
 	if (mlx_is_key_down(general->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(general->mlx);
 	if (mlx_is_key_down(general->mlx, MLX_KEY_W))
 	{
-		// general->angle += 0.1;
-		// if (general->angle < 0)
-		// 	general->angle += 2 * PI;
-		general->delta_x = cos(general->angle);
-		general->delta_y = sin(general->angle);
-		//general->delta_x = cos(general->angle) * 5;
-		//general->delta_y = sin(general->angle) * 5;
 	 	general->px += general->delta_x;
 		general->py -= general->delta_y;
-		//general->py += general->delta_y;
 	}
-	// if (mlx_is_key_down(general->mlx, MLX_KEY_S))
-	//  	general->y += 60 * general->mlx->delta_time;
+	if (mlx_is_key_down(general->mlx, MLX_KEY_S))
+	{
+		general->px -= general->delta_x;
+		general->py += general->delta_y;
+	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_A))
+		general->px -= 1;
+	if (mlx_is_key_down(general->mlx, MLX_KEY_D))
+		general->px += 1;
+
+	//cam
+
+	if (mlx_is_key_down(general->mlx, MLX_KEY_RIGHT))
 	{
 		general->angle -= 0.1;
+		general->delta_x = cos(general->angle);
+		general->delta_y = sin(general->angle);
 	}
-	if (mlx_is_key_down(general->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(general->mlx, MLX_KEY_LEFT))
 	{
 		general->angle += 0.1;
+		general->delta_x = cos(general->angle);
+		general->delta_y = sin(general->angle);
 	}
-	// general->img->rambo_2d->instances->x = general->x;
-	// general->img->rambo_2d->instances->y = general->y;
 }
 
 //-----------------------------------------------------------------------------
