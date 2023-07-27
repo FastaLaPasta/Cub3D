@@ -6,15 +6,22 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:33:44 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/26 16:17:19 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:11:00 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
+int	ft_spawnvalid(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (0);
+	return (1);
+}
+
 int	ft_caravalid(char c)
 {
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == '0' || c == '1')
+	if (ft_spawnvalid(c) == 0 || c == '0' || c == '1' || c == '2' || c == '4')
 		return (0);
 	return (1);
 }
@@ -63,28 +70,26 @@ int	mustlligne(char **map)
 void	ft_safemap(t_map *map)
 {
 	int		i;
-	int		m;
 	int		j;
 
 	j = 0;
-	m = mustlligne(map->map);
+	map->max = mustlligne(map->map);
 	map->safe = malloc(sizeof(char *) * (map->line + 3));
 	if (!map->safe)
 		return ;
 	i = 0;
 	while (i < map->line + 2)
 	{
-		map->safe[i] = malloc(sizeof(char) * (m + 3));
+		map->safe[i] = malloc(sizeof(char) * (map->max + 3));
 		if (!map->safe[i])
 			return ;
-		map->safe[i] = ft_memset(map->safe[i], '=', m + 2);
-		map->safe[i][m + 2] = '\0';
+		map->safe[i] = ft_memset(map->safe[i], '4', map->max + 2);
+		map->safe[i][map->max + 2] = '\0';
 		if (i > 0 && i < map->line + 1)
 		{
 			ft_strlcpynon(map->safe[i], map->map[j], -1);
 			j++;
 		}
-		printf("%s\n", map->safe[i]);
 		i++;
 	}
 	map->safe[map->line + 2] = NULL;

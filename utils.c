@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:23 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/26 15:29:24 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:47:07 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	init_struct(t_map *map)
 	map->line = 0;
 	map->map = NULL;
 	map->safe = NULL;
+	map->startc = -1;
+	map->startl = -1;
+	map->max = -1;
 }
 
 int	ft_strcmp(char *s1, char *s2)

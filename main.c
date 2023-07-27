@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/21 13:17:40 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:02:08 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int32_t main(int32_t argc, char **argv)
 	t_map map;
 
 	if (fill_map_struct(&map, argv) == 1)
-		// return (1);
+		 return (1);
 	// Gotta error check this stuff
 	// if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	// {
@@ -93,5 +93,6 @@ int32_t main(int32_t argc, char **argv)
 	// mlx_loop(mlx);
 	// mlx_terminate(mlx);
 	//system("leaks Game");
+	ft_freemap(&map);
 	return (EXIT_SUCCESS);
 }

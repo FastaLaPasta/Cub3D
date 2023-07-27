@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/26 16:16:31 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:26:43 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ typedef struct s_map
 	char	*ea;
 	int		f;
 	int		c;
-	int		line;	
+	int		line;
+	int		max;
+	int		startl;
+	int		startc;
 }	t_map;
 
 int		fill_map_struct(t_map *map, char **argv);
@@ -55,5 +58,10 @@ int		ft_structmapverif(t_map *map);
 void	ft_freemap(t_map *map);
 void	ft_freedchar(char **p);
 void	ft_safemap(t_map *map);
+int		ft_checkerr(t_map *map);
+int		ft_spawnvalid(char c);
+void	ft_rederror(char *s);
+void	free_gnl(char *line, char *linenl, int fd, char **splt);
+void	ft_endoffile(int fd);
 
 #endif

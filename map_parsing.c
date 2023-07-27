@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/26 16:17:10 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:08:27 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,7 @@ char	**fill_map(t_map *gen, char *path)
 	map = malloc(sizeof(char *));
 	map[0] = NULL;
 	if (fill_map_texture(gen, fd) == 2)
-	{
-		printf("\e[1;34mWARNING TEXTURE\x1B[31m\n");
-		free(map);
-		close(fd);
-		return (NULL);
-	}
+		return (ft_rederror("Warning Texture\n"), free(map), close(fd), NULL);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -74,7 +69,7 @@ int	ft_exten(char *f, char *ex)
 	s = ft_substr(f, ft_strlen(f) - 4, ft_strlen(f));
 	if (ft_strcmp(s, ex) != 0)
 	{
-		fprintf(stderr, "erreur d'extension\n");
+		ft_rederror("Erreur d'extension\n");
 		free(s);
 		return (1);
 	}
@@ -84,36 +79,24 @@ int	ft_exten(char *f, char *ex)
 
 int	fill_map_struct(t_map *map, char **argv)
 {
-	int i = 0;
-
 	init_struct(map);
-	if (ft_exten(argv[1], ".cub"))
+	if (argv[1] == NULL || ft_exten(argv[1], ".cub"))
 		return (1);
 	map->map = fill_map(map, argv[1]);
 	if (ft_structmapverif(map) == 1)
 	{
-		printf("\e[1;34mWARNING MAP PAS BONNE\e[0m\n");
+		ft_rederror("WARNING!\n");
 		ft_freemap(map);
 		return (1);
 	}
 	ft_mapadd2(map->map);
 	ft_safemap(map);
+	if (ft_checkerr(map) == 1)
+		return (ft_freemap(map), 1);
 	if (map->safe == NULL)
 	{
 		ft_freemap(map);
 		return (1);
 	}
-	printf("NO=%s=\n", map->no);
-	printf("SO=%s=\n", map->so);
-	printf("WE=%s=\n", map->we);
-	printf("EA=%s=\n", map->ea);
-	printf("F=%d=\n", map->f);
-	printf("C=%d=\n", map->c);
-	while (map->map[i])
-	{
-		printf("%s\n", map->map[i]);
-		i++;
-	}
-	ft_freemap(map);
 	return (0);
 }
