@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/27 17:03:28 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:07:46 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ void	ft_hook(void* param)
 		for (uint32_t y = 0; y < 720; ++y)
 			mlx_put_pixel(general->image, i, y, 0xFF000000);
 	}
-	for (int j = 0; j < 720; j++)
-	{
-		draw_line(general, general->px + 8, general->py, j*32, 0 );
-	}
+		draw_line(general, general->px + 8, general->py, general->px + 8, 0 );
 	for (uint32_t i = 0; i < 16; ++i)
 	{
 		for (uint32_t y = 0; y < 16; ++y)
