@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:29:56 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:56:47 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_hook(void* param)
 {
 	t_gen	*general;
 	int		j;
-	static int k = 0;
 
 	general = param;
 	j = 0;
@@ -62,13 +61,7 @@ void	ft_hook(void* param)
 		for (uint32_t y = 0; y < 720; ++y)
 			mlx_put_pixel(general->image, i, y, 0xFF000000);
 	}
-	
-	if (k == 0)
-	{
-		j = general->py - 64;
-		k++;
-	}
-	while (j < j + 128)
+	while (j < 64)
 	{
 		draw_line(general, general->px + 8, general->py, (j * 4) * general->angle, 0);
 		j++;
@@ -78,9 +71,7 @@ void	ft_hook(void* param)
 		for (uint32_t y = 0; y < 16; ++y)
 			mlx_put_pixel(general->image, general->px + i, general->py + y, 1671160);
 	}
-
 	//Events on KeyPress, moove, quit and cam
-
 	if (mlx_is_key_down(general->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(general->mlx);
 	if (mlx_is_key_down(general->mlx, MLX_KEY_W))
@@ -116,15 +107,17 @@ void	ft_hook(void* param)
 
 //-----------------------------------------------------------------------------
 
-int32_t main(int32_t argc, char **argv)
+int32_t	main(int32_t argc, char **argv)
 {
-	(void)argv;
-	(void)argc;
-	t_gen general;
+	t_gen	general;
 	t_map	map;
 	t_img	img;
 
-	general.map =  fill_map_struct(&map, argv);
+	(void)argv;
+	(void)argc;
+	if (fill_map_struct(&map, argv) == 1)
+		return (1);
+	general.map = &map;
 	if (argc != 2)
 		return (write(2, "Error\nArgument problem\n", 24));
 	init(&general);
@@ -139,12 +132,6 @@ int32_t main(int32_t argc, char **argv)
 	mlx_loop(general.mlx);
 	mlx_terminate(general.mlx);
 	ft_freemap(general.map);
-	// system("leaks Game");
-	//t_map	map;
-
-	//(void)argc;
-	//if (fill_map_struct(&map, argv) == 1)
-	//	return (1);
-	//ft_freemap(&map);
-	//return (EXIT_SUCCESS);
+	//system("leaks Game");
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/27 16:26:43 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:46:19 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_gen
 	float			ra;
 }	t_gen;
 
-t_map	*fill_map_struct(t_map *map, char **argv);
+int		fill_map_struct(t_map *map, char **argv);
 char	**fill_map(t_map *gen, char *path);
 char	**creat_map(char *line, char **map);
 void	ft_freemap(t_map *map);
