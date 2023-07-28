@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/27 15:58:50 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:46:19 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,17 @@
 typedef struct s_map
 {
 	char	**map;
+	char	**safe;
 	char	*no;
 	char	*so;
 	char	*we;
 	char	*ea;
 	int		f;
 	int		c;
-	int		line;	
+	int		line;
+	int		max;
+	int		startl;
+	int		startc;
 }	t_map;
 
 typedef struct s_img
@@ -58,7 +62,7 @@ typedef struct s_gen
 	float			ra;
 }	t_gen;
 
-t_map	*fill_map_struct(t_map *map, char **argv);
+int		fill_map_struct(t_map *map, char **argv);
 char	**fill_map(t_map *gen, char *path);
 char	**creat_map(char *line, char **map);
 void	ft_freemap(t_map *map);
@@ -76,4 +80,16 @@ int		ft_strcmp(char *s1, char *s2);
 t_img	*print_2d_map(t_gen *gen, t_img *img);
 
 int		ft_exten(char *f, char *ex);
+void	ft_mapadd2(char **map);
+int		ft_caravalid(char c);
+int		ft_structmapverif(t_map *map);
+void	ft_freemap(t_map *map);
+void	ft_freedchar(char **p);
+void	ft_safemap(t_map *map);
+int		ft_checkerr(t_map *map);
+int		ft_spawnvalid(char c);
+void	ft_rederror(char *s);
+void	free_gnl(char *line, char *linenl, int fd, char **splt);
+void	ft_endoffile(int fd);
+
 #endif

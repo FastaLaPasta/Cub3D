@@ -6,20 +6,11 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/27 16:30:09 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:48:36 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-void	ft_freemap(t_map *map)
-{
-	ft_freedchar(map->map);
-	free(map->no);
-	free(map->so);
-	free(map->we);
-	free(map->ea);
-}
 
 char	**creat_map(char *line, char **map)
 {
@@ -27,7 +18,7 @@ char	**creat_map(char *line, char **map)
 	int		i;
 
 	tmp = malloc(sizeof(char *) * (ft_strlentab(map) + 2));
-	if (map == NULL)
+	if (tmp == NULL)
 		return (NULL);
 	i = 0;
 	while (map[i])
@@ -48,28 +39,25 @@ char	**fill_map(t_map *gen, char *path)
 	int		fd;
 	char	*line;
 	char	**map;
-	int		i;
 
-	i = 0;
 	fd = open(path, O_RDWR);
 	if (fd == -1)
 		return (NULL);
 	map = malloc(sizeof(char *));
 	map[0] = NULL;
 	if (fill_map_texture(gen, fd) == 2)
-		return (NULL);
+		return (ft_rederror("Warning Texture\n"), free(map), close(fd), NULL);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
 		if (line[0] != '\n')
 		{
-			i++;
+			gen->line++;
 			map = creat_map(line, map);
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
-	gen->line = i;
 	close(fd);
 	return (map);
 }
@@ -81,7 +69,7 @@ int	ft_exten(char *f, char *ex)
 	s = ft_substr(f, ft_strlen(f) - 4, ft_strlen(f));
 	if (ft_strcmp(s, ex) != 0)
 	{
-		fprintf(stderr, "erreur d'extension\n");
+		ft_rederror("Erreur d'extension\n");
 		free(s);
 		return (1);
 	}
@@ -90,13 +78,26 @@ int	ft_exten(char *f, char *ex)
 }
 
 
-t_map	*fill_map_struct(t_map *map, char **argv)
+int	fill_map_struct(t_map *map, char **argv)
 {
-
-	if (map == NULL)
-		init_struct(map);
-	if (ft_exten(argv[1], ".cub"))
+	init_struct(map);
+	if (argv[1] == NULL || ft_exten(argv[1], ".cub"))
 		return (1);
 	map->map = fill_map(map, argv[1]);
-	return(map);
+	if (ft_structmapverif(map) == 1)
+	{
+		ft_rederror("WARNING!\n");
+		ft_freemap(map);
+		return (1);
+	}
+	ft_mapadd2(map->map);
+	ft_safemap(map);
+	if (ft_checkerr(map) == 1)
+		return (ft_freemap(map), 1);
+	if (map->safe == NULL)
+	{
+		ft_freemap(map);
+		return (1);
+	}
+	return (0);
 }

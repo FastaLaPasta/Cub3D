@@ -6,55 +6,55 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:29:56 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/28 14:01:07 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cube.h"
 #define WIDTH 1080
 #define HEIGHT 1080
-#include "cube.h"
 
 void	init(t_gen *gen)
 {
-	gen->angle = PI/2;
+	gen->angle = PI / 2;
 	gen->delta_x = cos(gen->angle);
 	gen->delta_y = sin(gen->angle);
 }
 
-int draw_line(t_gen *gen, float beginX, float beginY, float endX, float endY)
+int	draw_line(t_gen *gen, float beginx, float beginy, float angle)
 {
-	double deltaX;
-	double deltaY;
-	float pixels;
+	double	deltax;
+	double	deltay;
+	float	pixels;
 
 	// direction of the line
-	deltaX = endX - beginX; // 10
-	deltaY = endY - beginY; // 0
+	deltax = cos(angle) * 100; // 10
+	deltay = -sin(angle) * 100; // 0
 	// Max pixels to draw
-	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX /= pixels; // 1
-	deltaY /= pixels; // 0
-	while (pixels)
+	pixels = sqrt((deltax * deltax) + (deltay * deltay));
+	deltax /= pixels; // 1
+	deltay /= pixels; // 0
+	while (gen->map->map[(int)beginy / 32][(int)beginx / 32] == '0' || 
+	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'N' ||
+	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'E' ||
+	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'S' ||
+	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'W')
 	{
-		if (gen->map->map[(int)beginY / 32][(int)beginX / 32] != '1')
-			mlx_put_pixel(gen->image, beginX, beginY, 0xFF00FFFF);
-		else
-			break;
-		beginX += deltaX;
-		beginY += deltaY;
+		mlx_put_pixel(gen->image, beginx, beginy, 0xFF00FFFF);
+		beginx += deltax;
+		beginy += deltay;
 		--pixels;
 	}
 	return (0);
 }
 
-void	ft_hook(void* param)
+void	ft_hook(void	*param)
 {
 	t_gen	*general;
-	int		j;
-	static int k = 0;
+	float	j;
 
+	j = PI / 4;
 	general = param;
-	j = 0;
 	//Draw the Personnage and the background to erase and recreate it
 
 	for (uint32_t i = 0; i < 1080; ++i)
@@ -62,16 +62,12 @@ void	ft_hook(void* param)
 		for (uint32_t y = 0; y < 720; ++y)
 			mlx_put_pixel(general->image, i, y, 0xFF000000);
 	}
-	
-	if (k == 0)
+	// angle de vision
+	while (j > -(PI / 4))
 	{
-		j = general->py - 64;
-		k++;
-	}
-	while (j < j + 128)
-	{
-		draw_line(general, general->px + 8, general->py, (j * 4) * general->angle, 0);
-		j++;
+		draw_line(general, general->px + 8, general->py, j + general->angle);
+		// valeur de l'incrementation definis le nombres de lasers que l'on tire
+		j -= 0.1;
 	}
 	for (uint32_t i = 0; i < 16; ++i)
 	{
@@ -114,17 +110,17 @@ void	ft_hook(void* param)
 	}
 }
 
-//-----------------------------------------------------------------------------
-
-int32_t main(int32_t argc, char **argv)
+int32_t	main(int32_t argc, char **argv)
 {
-	(void)argv;
-	(void)argc;
-	t_gen general;
+	t_gen	general;
 	t_map	map;
 	t_img	img;
 
-	general.map =  fill_map_struct(&map, argv);
+	(void)argv;
+	(void)argc;
+	if (fill_map_struct(&map, argv) == 1)
+		return (1);
+	general.map = &map;
 	if (argc != 2)
 		return (write(2, "Error\nArgument problem\n", 24));
 	init(&general);
@@ -139,6 +135,6 @@ int32_t main(int32_t argc, char **argv)
 	mlx_loop(general.mlx);
 	mlx_terminate(general.mlx);
 	ft_freemap(general.map);
-	// system("leaks Game");
+	system("leaks Game");
 	return (EXIT_SUCCESS);
 }
