@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
 /*   Updated: 2023/07/27 16:30:09 by sboulogn         ###   ########.fr       */
@@ -57,7 +57,7 @@ char	**fill_map(t_map *gen, char *path)
 	map = malloc(sizeof(char *));
 	map[0] = NULL;
 	if (fill_map_texture(gen, fd) == 2)
-		return (0);
+		return (NULL);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -74,10 +74,29 @@ char	**fill_map(t_map *gen, char *path)
 	return (map);
 }
 
+int	ft_exten(char *f, char *ex)
+{
+	char	*s;
+
+	s = ft_substr(f, ft_strlen(f) - 4, ft_strlen(f));
+	if (ft_strcmp(s, ex) != 0)
+	{
+		fprintf(stderr, "erreur d'extension\n");
+		free(s);
+		return (1);
+	}
+	free(s);
+	return (0);
+}
+
+
 t_map	*fill_map_struct(t_map *map, char **argv)
 {
+
 	if (map == NULL)
 		init_struct(map);
+	if (ft_exten(argv[1], ".cub"))
+		return (1);
 	map->map = fill_map(map, argv[1]);
 	return(map);
 }

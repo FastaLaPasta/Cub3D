@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
 /*   Updated: 2023/07/27 15:58:50 by sboulogn         ###   ########.fr       */
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <stdbool.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
@@ -74,4 +75,5 @@ int		ft_strcmp(char *s1, char *s2);
 /*Print la map en 2D*/
 t_img	*print_2d_map(t_gen *gen, t_img *img);
 
+int		ft_exten(char *f, char *ex);
 #endif
