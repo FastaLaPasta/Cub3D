@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:08 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/20 13:48:57 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:25:24 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,60 @@ int	choose_color(char **line)
 	return (x);
 }
 
+int	check_cardinaux(t_map *map, char **line)
+{
+	if (ft_strcmp(line[0], "NO") == 0 && !map->no)
+	{
+		if (ft_exten(line[1], ".png") == 1)
+			return (1);
+		map->no = ft_strdup(line[1]);
+	}
+	else if (ft_strcmp(line[0], "SO") == 0 && !map->so)
+	{
+		if (ft_exten(line[1], ".png") == 1)
+			return (1);
+		map->so = ft_strdup(line[1]);
+	}
+	else if (ft_strcmp(line[0], "WE") == 0 && !map->we)
+	{
+		if (ft_exten(line[1], ".png") == 1)
+			return (1);
+		map->we = ft_strdup(line[1]);
+	}
+	else if (ft_strcmp(line[0], "EA") == 0 && !map->ea)
+	{
+		if (ft_exten(line[1], ".png") == 1)
+			return (1);
+		map->ea = ft_strdup(line[1]);
+	}
+	return (0);
+}
+
 int	choose_texture(t_map *map, char **line)
 {
-	if (ft_strcmp(line[0], "NO") == 0)
-		map->no = ft_strdup(line[1]);
-	else if (ft_strcmp(line[0], "SO") == 0)
-		map->so = ft_strdup(line[1]);
-	else if (ft_strcmp(line[0], "WE") == 0)
-		map->we = ft_strdup(line[1]);
-	else if (ft_strcmp(line[0], "EA") == 0)
-		map->ea = ft_strdup(line[1]);
-	else if (ft_strcmp(line[0], "F") == 0)
+	if (!line[1])
+		return (ft_rederror("Missing Mandatory Data !\n"), 1);
+	if (ft_strcmp(line[0], "F") == 0 && map->f == -1)
 		map->f = choose_color(line);
-	else if (ft_strcmp(line[0], "C") == 0)
+	else if (ft_strcmp(line[0], "C") == 0 && map->c == -1)
 		map->c = choose_color(line);
+	else if (check_cardinaux(map, line) == 0)
+		return (0);
+	else
+		return (ft_rederror("probleme de fichier map !\n"), 1);
 	return (0);
+}
+
+void	ft_endoffile(int fd)
+{
+	char	*buf;
+
+	buf = get_next_line(fd);
+	while (buf != NULL)
+	{
+		free(buf);
+		buf = get_next_line(fd);
+	}
 }
 
 int	fill_map_texture(t_map *map, int fd)
@@ -60,10 +99,8 @@ int	fill_map_texture(t_map *map, int fd)
 		{
 			linenl = ft_strdup2(line);
 			splt = ft_split(linenl, ' ');
-			if (nb_parsed < 4)
-				if (ft_exten(splt[1], ".png") == 1)
-					return (2);
-			choose_texture(map, splt);
+			if (choose_texture(map, splt) == 1)
+				return (free_gnl(line, linenl, fd, splt), 2);
 			free(linenl);
 			ft_freedchar(splt);
 			nb_parsed++;

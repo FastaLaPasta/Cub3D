@@ -140,5 +140,11 @@ int32_t main(int32_t argc, char **argv)
 	mlx_terminate(general.mlx);
 	ft_freemap(general.map);
 	// system("leaks Game");
-	return (EXIT_SUCCESS);
+	//t_map	map;
+
+	//(void)argc;
+	//if (fill_map_struct(&map, argv) == 1)
+	//	return (1);
+	//ft_freemap(&map);
+	//return (EXIT_SUCCESS);
 }
