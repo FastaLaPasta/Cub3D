@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/27 17:24:33 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:29:56 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ int draw_line(t_gen *gen, float beginX, float beginY, float endX, float endY)
 void	ft_hook(void* param)
 {
 	t_gen	*general;
-	
-	general = param;
+	int		j;
+	static int k = 0;
 
+	general = param;
+	j = 0;
 	//Draw the Personnage and the background to erase and recreate it
 
 	for (uint32_t i = 0; i < 1080; ++i)
@@ -60,8 +62,17 @@ void	ft_hook(void* param)
 		for (uint32_t y = 0; y < 720; ++y)
 			mlx_put_pixel(general->image, i, y, 0xFF000000);
 	}
-	for (int j = general->py - 64; j < general->py+64 ; j++)
-		draw_line(general, general->px + 8, general->py, j * 4, 0);
+	
+	if (k == 0)
+	{
+		j = general->py - 64;
+		k++;
+	}
+	while (j < j + 128)
+	{
+		draw_line(general, general->px + 8, general->py, (j * 4) * general->angle, 0);
+		j++;
+	}
 	for (uint32_t i = 0; i < 16; ++i)
 	{
 		for (uint32_t y = 0; y < 16; ++y)
