@@ -21,6 +21,8 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "Libft/libft.h"
+# define PI 3.1415926535
+# define DR 0.0174533
 
 typedef struct s_map
 {
@@ -38,7 +40,29 @@ typedef struct s_map
 	int		startc;
 }	t_map;
 
-int		fill_map_struct(t_map *map, char **argv);
+typedef struct s_img
+{
+	mlx_image_t	*wall_2d;
+	mlx_image_t	*flour_2d;
+	mlx_image_t	*rambo_2d;
+}	t_img;
+
+
+typedef struct s_gen
+{
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	struct s_map	*map;
+	t_img			*img;
+	float			px;
+	float			py;
+	float			delta_x;
+	float			delta_y;
+	float			angle;
+	float			ra;
+}	t_gen;
+
+t_map	*fill_map_struct(t_map *map, char **argv);
 char	**fill_map(t_map *gen, char *path);
 char	**creat_map(char *line, char **map);
 void	ft_freemap(t_map *map);
@@ -51,6 +75,10 @@ int		fill_map_texture(t_map *map, int fd);
 int		choose_texture(t_map *map, char **line);
 int		choose_color(char **line);
 int		ft_strcmp(char *s1, char *s2);
+
+/*Print la map en 2D*/
+t_img	*print_2d_map(t_gen *gen, t_img *img);
+
 int		ft_exten(char *f, char *ex);
 void	ft_mapadd2(char **map);
 int		ft_caravalid(char c);

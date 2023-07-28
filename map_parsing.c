@@ -39,7 +39,9 @@ char	**fill_map(t_map *gen, char *path)
 	int		fd;
 	char	*line;
 	char	**map;
+	int		i;
 
+	i = 0;
 	fd = open(path, O_RDWR);
 	if (fd == -1)
 		return (NULL);
@@ -58,6 +60,7 @@ char	**fill_map(t_map *gen, char *path)
 		free(line);
 		line = get_next_line(fd);
 	}
+	gen->line = i;
 	close(fd);
 	return (map);
 }
@@ -77,7 +80,8 @@ int	ft_exten(char *f, char *ex)
 	return (0);
 }
 
-int	fill_map_struct(t_map *map, char **argv)
+
+t_map	*fill_map_struct(t_map *map, char **argv)
 {
 	init_struct(map);
 	if (argv[1] == NULL || ft_exten(argv[1], ".cub"))
@@ -99,4 +103,11 @@ int	fill_map_struct(t_map *map, char **argv)
 		return (1);
 	}
 	return (0);
+
+	if (map == NULL)
+		init_struct(map);
+	if (ft_exten(argv[1], ".cub"))
+		return (1);
+	map->map = fill_map(map, argv[1]);
+	return(map);
 }

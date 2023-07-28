@@ -1,10 +1,11 @@
 NAME	:= Game
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g3
 LIBMLX	:= /Users/$$USER/Desktop/MLX42
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= get_next_line/gnl.a Libft/libft.a
-SRCS	:= main.c map_parsing.c map_parsing2.c utils.c verif_map.c err.c flood_fill.c
+LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$$USER/.brew/opt/glfw/lib/"\
+			get_next_line/gnl.a Libft/libft.a
+SRCS	:= main.c map_parsing.c map_parsing2.c utils.c fill_map_color.c verif_map.c err.c flood_fill.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
