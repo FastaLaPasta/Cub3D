@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:46:19 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/29 13:32:36 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ typedef struct s_img
 	mlx_image_t	*rambo_2d;
 }	t_img;
 
-
 typedef struct s_gen
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*tdimen;
 	struct s_map	*map;
 	t_img			*img;
 	float			px;
