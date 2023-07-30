@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/28 14:01:07 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:22:59 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,130 @@
 
 void	init(t_gen *gen)
 {
-	gen->angle = PI / 2;
-	gen->delta_x = cos(gen->angle);
-	gen->delta_y = sin(gen->angle);
+	gen->dir_x = 1;
+	gen->dir_y = 0;
+	gen->plane_x = 0;
+	gen->plane_y = 0.66;
 }
 
-int	draw_line(t_gen *gen, float beginx, float beginy, float angle)
-{
-	double	deltax;
-	double	deltay;
-	float	pixels;
+// int	draw_line(t_gen *gen, double r_dir_x, double r_dir_y)
+// {
+// 	return (0);
+// }
 
-	// direction of the line
-	deltax = cos(angle) * 100; // 10
-	deltay = -sin(angle) * 100; // 0
-	// Max pixels to draw
-	pixels = sqrt((deltax * deltax) + (deltay * deltay));
-	deltax /= pixels; // 1
-	deltay /= pixels; // 0
-	while (gen->map->map[(int)beginy / 32][(int)beginx / 32] == '0' || 
-	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'N' ||
-	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'E' ||
-	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'S' ||
-	gen->map->map[(int)beginy / 32][(int)beginx / 32] == 'W')
+int	raycasting_try(t_gen *gen)
+{
+	int	x;
+	double	cam;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	double		perpwalldist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+
+	x = 0;
+	while (x < 1080)
 	{
-		mlx_put_pixel(gen->image, beginx, beginy, 0xFF00FFFF);
-		beginx += deltax;
-		beginy += deltay;
-		--pixels;
+		cam = 2 * x / (double)1080 - 1;
+		ray_dir_x = gen->dir_x + gen->plane_x * cam;
+		ray_dir_y = gen->dir_y + gen->plane_y * cam;
+
+		map_x = (int)gen->px / 16;
+		map_y = (int)gen->py / 16;
+		if (ray_dir_x == 0)
+			gen->delta_x = 1e30;
+		else
+			gen->delta_x = fabs(1 / ray_dir_x);
+		if (ray_dir_y == 0)
+			gen->delta_y = 1e30;
+		else
+			gen->delta_y = fabs(1 / ray_dir_y);
+		hit = 0;
+		if (ray_dir_x < 0)
+		{
+			step_x = -1;
+			side_dist_x = (gen->px / 16 - map_x) * gen->delta_x;
+		}
+		else
+		{
+			step_x = 1;
+			side_dist_x = (map_x + 1. - gen->px / 16) * gen->delta_x;
+		}
+		if (ray_dir_y < 0)
+		{
+			step_y = -1;
+			side_dist_y = (gen->py / 16 - map_y) * gen->delta_y;
+		}
+		else
+		{
+			step_y = 1;
+			side_dist_y = (map_y + 1. - gen->py / 16) * gen->delta_y;
+		}
+		while (hit == 0)
+		{
+			if (side_dist_x < side_dist_y)
+			{
+				side_dist_x += gen->delta_x;
+				map_x += step_x;
+				side = 0;
+			}
+			else
+			{
+				side_dist_y += gen->delta_y;
+				map_y += step_y;
+				side = 1;
+			}
+			if (gen->map->map[map_y][map_x] > '0')
+				hit = 1;
+		}
+		if (side == 0)
+			perpwalldist = (side_dist_x - gen->delta_x);
+		else
+			perpwalldist = (side_dist_y - gen->delta_y); 
+		line_height = 720 / perpwalldist;
+		draw_start = -line_height / 2 + 720 / 2;
+		if (draw_start < 0)
+			draw_start = 0;
+		draw_end = line_height / 2 + 720 / 2;
+		if (draw_end >= 720)
+			draw_end = 719;
+		int color;
+		if (gen->map->map[map_y][map_x] == '3')
+		{
+			if (side)
+				color = 0xF1C40FFF;
+			else
+				color = 0xF39C12FF;
+		}
+		else if (gen->map->map[map_y][map_x] == '5')
+		{
+			if (side)
+				color = 0xE74C3CFF;
+			else
+				color = 0xC0392BFF;
+		}
+		else
+		{
+			if (side)
+				color = 0x34495EFF;
+			else
+				color = 0x2C3E50FF;
+		}
+		while (draw_start < draw_end)
+		{
+			mlx_put_pixel(gen->image, x, draw_start, color);
+			draw_start++;
+		}
+		x++;
 	}
 	return (0);
 }
@@ -51,63 +147,91 @@ int	draw_line(t_gen *gen, float beginx, float beginy, float angle)
 void	ft_hook(void	*param)
 {
 	t_gen	*general;
-	float	j;
+	double	j;
 
 	j = PI / 4;
 	general = param;
 	//Draw the Personnage and the background to erase and recreate it
-
+	
 	for (uint32_t i = 0; i < 1080; ++i)
 	{
 		for (uint32_t y = 0; y < 720; ++y)
 			mlx_put_pixel(general->image, i, y, 0xFF000000);
 	}
-	// angle de vision
-	while (j > -(PI / 4))
+	for (uint32_t i = 0; i < 1080; ++i)
 	{
-		draw_line(general, general->px + 8, general->py, j + general->angle);
-		// valeur de l'incrementation definis le nombres de lasers que l'on tire
-		j -= 0.1;
+		for (uint32_t y = 0; y < 360; ++y)
+			mlx_put_pixel(general->image, i, y, 0x85C1E9FF);
 	}
-	for (uint32_t i = 0; i < 16; ++i)
+	for (uint32_t i = 0; i < 1080; ++i)
 	{
-		for (uint32_t y = 0; y < 16; ++y)
+		for (uint32_t y = 360; y < 720; ++y)
+			mlx_put_pixel(general->image, i, y, 0x196F3DFF);
+	}
+	// angle de vision
+	raycasting_try(general);
+	for (uint32_t i = 0; i < 8; ++i)
+	{
+		for (uint32_t y = 0; y < 8; ++y)
 			mlx_put_pixel(general->image, general->px + i, general->py + y, 1671160);
 	}
-
 	//Events on KeyPress, moove, quit and cam
-
+	
 	if (mlx_is_key_down(general->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(general->mlx);
 	if (mlx_is_key_down(general->mlx, MLX_KEY_W))
 	{
-	 	general->px += general->delta_x;
-		general->py -= general->delta_y;
+	 	general->px += general->dir_x;
+		general->py += general->dir_y;
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_S))
 	{
-		general->px -= general->delta_x;
-		general->py += general->delta_y;
+		general->px -= general->dir_x;
+		general->py -= general->dir_y;
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_A))
-		general->px -= 1;
+	{
+		general->px += general->dir_y;
+		general->py -= general->dir_x;
+	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_D))
-		general->px += 1;
+	{
+		general->px -= general->dir_y;
+		general->py += general->dir_x;
+	}
 
 	//cam
 
+	double	old_dir_x;
+	double	old_plane_x;
 	if (mlx_is_key_down(general->mlx, MLX_KEY_RIGHT))
 	{
-		general->angle -= 0.1;
-		general->delta_x = cos(general->angle);
-		general->delta_y = sin(general->angle);
+		old_dir_x = general->dir_x;
+		general->dir_x = general->dir_x * cos (0.05) - general->dir_y * sin(0.05);
+		general->dir_y = old_dir_x * sin(0.05) + general->dir_y * cos(0.05);
+		old_plane_x = general->plane_x;
+		general->plane_x = general->plane_x * cos(0.05) - general->plane_y * sin(0.05);
+		general->plane_y = old_plane_x * sin(0.05) + general->plane_y * cos(0.05);
+		
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_LEFT))
 	{
-		general->angle += 0.1;
-		general->delta_x = cos(general->angle);
-		general->delta_y = sin(general->angle);
+		old_dir_x = general->dir_x;
+		general->dir_x = general->dir_x * cos (-0.05) - general->dir_y * sin(-0.05);
+		general->dir_y = old_dir_x * sin(-0.05) + general->dir_y * cos(-0.05);
+		old_plane_x = general->plane_x;
+		general->plane_x = general->plane_x * cos(-0.05) - general->plane_y * sin(-0.05);
+		general->plane_y = old_plane_x * sin(-0.05) + general->plane_y * cos(-0.05);
 	}
+	// double length = sqrt(general->dir_x * general->dir_x + general->dir_y + general->dir_y);
+	// general->dir_x /= length;
+	// general->dir_y /= length;
+	// general->plane_x = general->dir_x * cos (-PI / 2) - general->dir_y * sin(-PI / 2);
+	// general->plane_y = general->dir_x * sin(-PI / 2) + general->dir_y * cos(-PI / 2);
+	// length = sqrt(general->plane_x * general->plane_x + general->plane_y + general->plane_y);
+	// general->plane_x /= length;
+	// general->plane_y /= length;
+	printf("%f %f %f %f\n", general->plane_x, general->plane_y, general->dir_x, general->dir_y);
 }
 
 int32_t	main(int32_t argc, char **argv)
@@ -135,6 +259,6 @@ int32_t	main(int32_t argc, char **argv)
 	mlx_loop(general.mlx);
 	mlx_terminate(general.mlx);
 	ft_freemap(general.map);
-	system("leaks Game");
+	// system("leaks Game");
 	return (EXIT_SUCCESS);
 }

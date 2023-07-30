@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:46:19 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:39:49 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,18 @@ typedef struct s_gen
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
+	mlx_image_t		*wall;
 	struct s_map	*map;
 	t_img			*img;
 	float			px;
 	float			py;
-	float			delta_x;
-	float			delta_y;
-	float			angle;
-	float			ra;
+	double			delta_x;
+	double			delta_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			ra;
 }	t_gen;
 
 int		fill_map_struct(t_map *map, char **argv);
