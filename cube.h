@@ -47,7 +47,6 @@ typedef struct s_img
 	mlx_image_t	*rambo_2d;
 }	t_img;
 
-
 typedef struct s_gen
 {
 	mlx_t			*mlx;

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:08:39 by sboulogn          #+#    #+#             */
 /*   Updated: 2023/07/30 16:40:07 by sboulogn         ###   ########.fr       */
@@ -20,12 +20,12 @@ void	create_image(t_gen *gen, t_img *img)
 	for (uint32_t i = 0; i < img->flour_2d->width; ++i)
 	{
 		for (uint32_t y = 0; y < img->flour_2d->height; ++y)
-			mlx_put_pixel(img->flour_2d, i, y, 9843250);
+			mlx_put_pixel(img->flour_2d, i, y, 9843299);
 	}
 	for (uint32_t i = 0; i < img->wall_2d->width; ++i)
 	{
 		for (uint32_t y = 0; y < img->wall_2d->height; ++y)
-			mlx_put_pixel(img->wall_2d, i, y, 3289750);
+			mlx_put_pixel(img->wall_2d, i, y, 3289799);
 	}
 	// for (uint32_t i = 0; i < img->rambo_2d->width; ++i)
 	// {
