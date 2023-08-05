@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/04 14:57:18 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/05 13:49:49 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#define WIDTH 1080
-#define HEIGHT 1080
 
 void	init(t_gen *gen)
 {
@@ -21,11 +19,6 @@ void	init(t_gen *gen)
 	gen->plane_x = 0;
 	gen->plane_y = 0.66;
 }
-
-// int	draw_line(t_gen *gen, double r_dir_x, double r_dir_y)
-// {
-// 	return (0);
-// }
 
 int	raycasting_try(t_gen *gen)
 {
