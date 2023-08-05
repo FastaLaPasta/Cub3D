@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:08:39 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/05 15:35:29 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/05 15:38:52 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ t_img	*print_2d_map(t_gen *gen, t_img *img)
 	while (y < gen->map->line && gen->map->map[y][x])
 	{
 		if (gen->map->map[y][x] == '0')
-			mlx_image_to_window(gen->mlx, img->flour_2d, x*16, y*16);
+			mlx_image_to_window(gen->mlx, img->flour_2d, x * 16, y * 16);
 		else if (gen->map->map[y][x] == '1')
-			mlx_image_to_window(gen->mlx, img->wall_2d, x*16, y*16);
+			mlx_image_to_window(gen->mlx, img->wall_2d, x * 16, y * 16);
 		else if (ft_spawnvalid(gen->map->map[y][x]) == 0)
 		{
-			mlx_image_to_window(gen->mlx, img->flour_2d, x*16, y*16);
+			mlx_image_to_window(gen->mlx, img->flour_2d, x * 16, y * 16);
 			gen->px = x * 16;
 			gen->py = y * 16;
 			gen->cardinal_case_x = x;

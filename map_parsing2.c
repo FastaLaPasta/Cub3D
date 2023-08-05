@@ -6,22 +6,23 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:08 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/27 16:25:24 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:20:23 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-int	choose_color(char **line)
+long	choose_color(char **line)
 {
-	char	**color;
-	int		x;
+	char		**color;
+	long		x;
 
 	color = ft_split(line[1], ',');
 	if (ft_strlentab(color) != 3)
 		return (2);
 	x = get_rgba(ft_atoi(color[0]), ft_atoi(color[1]),
 			ft_atoi(color[2]), 255);
+	printf("%lx\n", x);		
 	ft_freedchar(color);
 	return (x);
 }
@@ -59,9 +60,9 @@ int	choose_texture(t_map *map, char **line)
 {
 	if (!line[1])
 		return (ft_rederror("Missing Mandatory Data !\n"), 1);
-	if (ft_strcmp(line[0], "F") == 0 && map->f == -1)
+	if (ft_strcmp(line[0], "F") == 0 && map->f == 0)
 		map->f = choose_color(line);
-	else if (ft_strcmp(line[0], "C") == 0 && map->c == -1)
+	else if (ft_strcmp(line[0], "C") == 0 && map->c == 0)
 		map->c = choose_color(line);
 	else if (check_cardinaux(map, line) == 0)
 		return (0);

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/05 15:53:11 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:02:10 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-#define WIDTH 1080
-#define HEIGHT 1080
 
 void	init(t_gen *gen)
 {
@@ -51,11 +49,6 @@ void	init(t_gen *gen)
 		gen->plane_y = old_plane_x * sin(1.575) + gen->plane_y * cos(1.575);
 	}
 }
-
-// int	draw_line(t_gen *gen, double r_dir_x, double r_dir_y)
-// {
-// 	return (0);
-// }
 
 int	raycasting_try(t_gen *gen)
 {
@@ -134,39 +127,28 @@ int	raycasting_try(t_gen *gen)
 		if (side == 0)
 			perpwalldist = (side_dist_x - gen->delta_x);
 		else
-			perpwalldist = (side_dist_y - gen->delta_y); 
+			perpwalldist = (side_dist_y - gen->delta_y);
 		line_height = 720 / perpwalldist;
 		draw_start = -line_height / 2 + 720 / 2;
 		if (draw_start < 0)
 			draw_start = 0;
 		draw_end = line_height / 2 + 720 / 2;
 		if (draw_end >= 720)
-			draw_end = 719;
-		int color;
-		if (gen->map->map[map_y][map_x] == '3')
-		{
-			if (side)
-				color = 0xF1C40FFF;
-			else
-				color = 0xF39C12FF;
-		}
-		else if (gen->map->map[map_y][map_x] == '5')
-		{
-			if (side)
-				color = 0xE74C3CFF;
-			else
-				color = 0xC0392BFF;
-		}
-		else
-		{
-			if (side)
-				color = 0x34495EFF;
-			else
-				color = 0x2C3E50FF;
-		}
+			draw_end = 720;
+		double wallX;
+		if (side == 0) wallX = gen->py / 16 + perpwalldist * ray_dir_y;
+		else           wallX = gen->px / 16 + perpwalldist * ray_dir_x;
+		wallX -= floor((wallX));
+		int texX = (int)(wallX * (double)64);
+		if(side == 0 && ray_dir_x > 0) texX = 64 - texX - 1;
+		if(side == 1 && ray_dir_y < 0) texX = 64 - texX - 1;
+		int true_haut;
+		true_haut = -line_height / 2 + 720 / 2;
+		int p;
 		while (draw_start < draw_end)
 		{
-			mlx_put_pixel(gen->image, x, draw_start, color);
+			p = ((draw_start - true_haut) * 64) / line_height;
+			((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[side+2]->pixels)[p * 64 + texX];
 			draw_start++;
 		}
 		x++;
@@ -206,12 +188,12 @@ void	ft_hook(void	*param)
 	for (uint32_t i = 0; i < 1080; ++i)
 	{
 		for (uint32_t y = 0; y < 360; ++y)
-			mlx_put_pixel(general->image, i, y, 0x85C1E9FF);
+			mlx_put_pixel(general->image, i, y, general->map->c);
 	}
 	for (uint32_t i = 0; i < 1080; ++i)
 	{
 		for (uint32_t y = 360; y < 720; ++y)
-			mlx_put_pixel(general->image, i, y, 0x196F3DFF);
+			mlx_put_pixel(general->image, i, y, general->map->f);
 	}
 	// angle de vision
 	raycasting_try(general);
@@ -284,7 +266,24 @@ void	ft_hook(void	*param)
 		general->plane_x = general->plane_x * cos(-0.05) - general->plane_y * sin(-0.05);
 		general->plane_y = old_plane_x * sin(-0.05) + general->plane_y * cos(-0.05);
 	}
-	// printf("%f %f %f %f\n", general->plane_x, general->plane_y, general->dir_x, general->dir_y);
+}
+
+void	texturemap3d(t_gen *gen)
+{
+	gen->tabtex = malloc(sizeof(mlx_texture_t) * 5);
+	gen->tabtex[0] = mlx_load_png(gen->map->no);
+	if (!gen->tabtex[0])
+		return ;
+	gen->tabtex[1] = mlx_load_png(gen->map->so);
+	if (!gen->tabtex[0])
+		return ;
+	gen->tabtex[2] = mlx_load_png(gen->map->ea);
+	if (!gen->tabtex[0])
+		return ;
+	gen->tabtex[3] = mlx_load_png(gen->map->we);
+	if (!gen->tabtex[0])
+		return ;
+	gen->tabtex[4] = NULL;
 }
 
 int32_t	main(int32_t argc, char **argv)
@@ -304,6 +303,7 @@ int32_t	main(int32_t argc, char **argv)
 		(1080, 720, "MLX42", true);
 	if (!general.mlx)
 		return (EXIT_FAILURE);
+	texturemap3d(&general);
 	general.image = mlx_new_image(general.mlx, 1080, 720);
 	mlx_image_to_window(general.mlx, general.image, 0, 0);
 	general.img = print_2d_map(&general, &img);
