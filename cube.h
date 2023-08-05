@@ -67,6 +67,8 @@ typedef struct s_gen
 	float			old_px;
 	float			old_py;
 	mlx_texture_t	**tabtex;
+	int				cardinal_case_x;
+	int				cardinal_case_y;
 }	t_gen;
 
 int		fill_map_struct(t_map *map, char **argv);

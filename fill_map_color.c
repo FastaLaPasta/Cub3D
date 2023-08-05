@@ -53,6 +53,8 @@ t_img	*print_2d_map(t_gen *gen, t_img *img)
 			mlx_image_to_window(gen->mlx, img->flour_2d, x * 16, y * 16);
 			gen->px = x * 16;
 			gen->py = y * 16;
+			gen->cardinal_case_x = x;
+			gen->cardinal_case_y = y;
 		}
 		x++;
 		if (gen->map->map[y][x] == '\0')
