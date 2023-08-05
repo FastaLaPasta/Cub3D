@@ -13,7 +13,7 @@
 #include "cube.h"
 #define WIDTH 1080
 #define HEIGHT 1080
-
+static int	PLO = 0;
 void	init(t_gen *gen)
 {
 	gen->dir_x = 1;
@@ -141,7 +141,6 @@ int	raycasting_try(t_gen *gen)
 		}
 		x++;
 	}
-	return (0);
 }
 
 void	fill_old_position(t_gen *gen)
@@ -164,7 +163,7 @@ void	ft_hook(void	*param)
 	t_gen	*general;
 	double	j;
 
-	j = PI / 4;
+	j = PI / 6;
 	general = param;
 	//Draw the Personnage and the background to erase and recreate it
 	
@@ -275,8 +274,12 @@ int32_t	main(int32_t argc, char **argv)
 		(1080, 720, "MLX42", true);
 	if (!general.mlx)
 		return (EXIT_FAILURE);
+	general.tdimen = mlx_new_image(general.mlx, 1080, 720);
+	mlx_image_to_window(general.mlx, general.tdimen, 0, 0);
+	general.tdimen->instances->z = 0;
 	general.image = mlx_new_image(general.mlx, 1080, 720);
 	mlx_image_to_window(general.mlx, general.image, 0, 0);
+	general.image->instances->z = 5;
 	general.img = print_2d_map(&general, &img);
 	mlx_loop_hook(general.mlx, ft_hook, &general);
 	mlx_loop(general.mlx);

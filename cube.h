@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/04 14:31:12 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/07/30 17:39:49 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_img
 	mlx_image_t	*flour_2d;
 	mlx_image_t	*rambo_2d;
 }	t_img;
-
 
 typedef struct s_gen
 {
