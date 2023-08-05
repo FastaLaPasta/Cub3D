@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/30 17:39:49 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:31:12 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct s_gen
 	double			plane_x;
 	double			plane_y;
 	double			ra;
+	float			old_px;
+	float			old_py;
 }	t_gen;
 
 int		fill_map_struct(t_map *map, char **argv);

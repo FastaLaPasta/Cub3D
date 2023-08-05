@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/30 18:22:59 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/04 14:57:18 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,21 @@ int	raycasting_try(t_gen *gen)
 	return (0);
 }
 
+void	fill_old_position(t_gen *gen)
+{
+	gen->old_px = gen->px;
+	gen->old_py = gen->py;
+}
+
+void	collision(t_gen *gen)
+{
+	if (gen->map->map[(int)gen->py / 16][(int)gen->px / 16] >= '1' && gen->map->map[(int)gen->py / 16][(int)gen->px / 16] != 'N')
+	{
+		gen->px = gen->old_px;
+		gen->py = gen->old_py;
+	}
+}
+
 void	ft_hook(void	*param)
 {
 	t_gen	*general;
@@ -181,23 +196,39 @@ void	ft_hook(void	*param)
 		mlx_close_window(general->mlx);
 	if (mlx_is_key_down(general->mlx, MLX_KEY_W))
 	{
-	 	general->px += general->dir_x;
-		general->py += general->dir_y;
+		fill_old_position(general);
+		if ((general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == '0' || (general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 'N')
+			general->py += general->dir_y;
+		if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == '0' || (general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 'N')
+	 		general->px += general->dir_x;
+		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_S))
 	{
+		fill_old_position(general);
+			if ((general->map->map[(int)general->py / 16][(int)general->px / 16 - (int)general->dir_x]) == '0' || (general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 'N')
 		general->px -= general->dir_x;
+			if ((general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == '0' || (general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 'N')
 		general->py -= general->dir_y;
+		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_A))
 	{
-		general->px += general->dir_y;
-		general->py -= general->dir_x;
+		fill_old_position(general);
+		if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_y]) == '0' || (general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 'N')
+			general->px -= general->plane_x;
+		if ((general->map->map[(int)general->py / 16 + (int)general->dir_x][(int)general->px / 16]) == '0' || (general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 'N')
+			general->py -= general->plane_y;
+		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_D))
 	{
-		general->px -= general->dir_y;
-		general->py += general->dir_x;
+		fill_old_position(general);
+		if (general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->plane_x] == '0')
+			general->px += general->plane_x;
+		if (general->map->map[(int)general->py / 16 + (int)general->plane_y][(int)general->px / 16] == '0')
+			general->py += general->plane_y;
+		collision(general);
 	}
 
 	//cam
@@ -223,14 +254,6 @@ void	ft_hook(void	*param)
 		general->plane_x = general->plane_x * cos(-0.05) - general->plane_y * sin(-0.05);
 		general->plane_y = old_plane_x * sin(-0.05) + general->plane_y * cos(-0.05);
 	}
-	// double length = sqrt(general->dir_x * general->dir_x + general->dir_y + general->dir_y);
-	// general->dir_x /= length;
-	// general->dir_y /= length;
-	// general->plane_x = general->dir_x * cos (-PI / 2) - general->dir_y * sin(-PI / 2);
-	// general->plane_y = general->dir_x * sin(-PI / 2) + general->dir_y * cos(-PI / 2);
-	// length = sqrt(general->plane_x * general->plane_x + general->plane_y + general->plane_y);
-	// general->plane_x /= length;
-	// general->plane_y /= length;
 	printf("%f %f %f %f\n", general->plane_x, general->plane_y, general->dir_x, general->dir_y);
 }
 
