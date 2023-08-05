@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/04 14:31:12 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:18:05 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_map
 	char	*so;
 	char	*we;
 	char	*ea;
-	int		f;
-	int		c;
+	long	f;
+	long	c;
 	int		line;
 	int		max;
 	int		startl;
@@ -66,6 +66,7 @@ typedef struct s_gen
 	double			ra;
 	float			old_px;
 	float			old_py;
+	mlx_texture_t	**tabtex;
 }	t_gen;
 
 int		fill_map_struct(t_map *map, char **argv);
@@ -73,13 +74,13 @@ char	**fill_map(t_map *gen, char *path);
 char	**creat_map(char *line, char **map);
 void	ft_freemap(t_map *map);
 void	init_struct(t_map *map);
-int		get_rgba(int r, int g, int b, int a);
+long	get_rgba(long r, long g, long b, long a);
 void	ft_freedchar(char **p);
 int		ft_strlentab(char **str);
 char	*ft_strdup2(char *s1);
 int		fill_map_texture(t_map *map, int fd);
 int		choose_texture(t_map *map, char **line);
-int		choose_color(char **line);
+long	choose_color(char **line);
 int		ft_strcmp(char *s1, char *s2);
 
 /*Print la map en 2D*/
