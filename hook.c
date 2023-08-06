@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:39 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/06 15:15:31 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:24:30 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,37 +74,37 @@ void	ft_hook(void	*param)
 	if (mlx_is_key_down(general->mlx, MLX_KEY_W))
 	{
 		fill_old_position(general);
-		if ((general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == 0)
-			general->py += general->dir_y;
-		if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == 0)
-	 		general->px += general->dir_x;
+		if ((general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == 0 || (general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == 'P')
+			general->py += general->dir_y * general->mlx->delta_time * SPEED;
+		if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == 0 || (general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == 'P')
+	 		general->px += general->dir_x * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_S))
 	{
 		fill_old_position(general);
 			if ((general->map->map[(int)general->py / 16][(int)general->px / 16 - (int)general->dir_x]) == '0' || ft_spawnvalid((general->map->map[(int)general->py / 16][(int)general->px / 16 - (int)general->dir_x])) == 0)
-		general->px -= general->dir_x;
+		general->px -= general->dir_x * general->mlx->delta_time * SPEED;
 			if ((general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 0)
-		general->py -= general->dir_y;
+		general->py -= general->dir_y * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_A))
 	{
 		fill_old_position(general);
 		if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_y]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_y]) == 0)
-			general->px -= general->plane_x;
+			general->px -= general->plane_x * general->mlx->delta_time * SPEED;
 		if ((general->map->map[(int)general->py / 16 + (int)general->dir_x][(int)general->px / 16]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 + (int)general->dir_x][(int)general->px / 16]) == 0)
-			general->py -= general->plane_y;
+			general->py -= general->plane_y * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_D))
 	{
 		fill_old_position(general);
 		if (general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->plane_x] == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->plane_x]) == 0)
-			general->px += general->plane_x;
+			general->px += general->plane_x * general->mlx->delta_time * SPEED;
 		if (general->map->map[(int)general->py / 16 + (int)general->plane_y][(int)general->px / 16] == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 + (int)general->plane_y][(int)general->px / 16]) == 0)
-			general->py += general->plane_y;
+			general->py += general->plane_y * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
 
