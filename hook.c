@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:39 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/06 16:24:30 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:36:45 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,27 @@ void	ft_hook(void	*param)
 			general->py += general->plane_y * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
+	printf("%c\n", general->map->map[(int)general->py / 16][(int)general->px / 16]);
+	if (mlx_is_key_down(general->mlx, MLX_KEY_E))
+	{
+			if ((general->map->map[(int)general->py / 16 + (int)round(general->dir_y)][(int)general->px / 16]) == 'Q')
+				(general->map->map[(int)general->py / 16 + (int)round(general->dir_y)][(int)general->px / 16]) = 'P';
+			if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)round(general->dir_x)]) == 'Q')
+				(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)round(general->dir_x)]) = 'P';
+	}
+	if (mlx_is_key_down(general->mlx, MLX_KEY_Q))
+	{
+			if ((general->map->map[(int)general->py / 16 + (int)round(general->dir_y)][(int)general->px / 16]) == 'P')
+				(general->map->map[(int)general->py / 16 + (int)round(general->dir_y)][(int)general->px / 16]) = 'Q';
+			if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)round(general->dir_x)]) == 'P')
+			(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)round(general->dir_x)]) = 'Q';
+	}
+
+	// else if (mlx_is_key_down(general->mlx, MLX_KEY_SPACE) && (general->map->map[(int)general->py / 16 - 1][(int)general->px / 16]) == 'P')
+	// {
+	// 	general->map->map[(int)general->py / 16 - 1][(int)general->px / 16] = 'Q';
+	// }
+	
 
 	//cam
 
@@ -120,7 +141,6 @@ void	ft_hook(void	*param)
 		old_plane_x = general->plane_x;
 		general->plane_x = general->plane_x * cos(0.05) - general->plane_y * sin(0.05);
 		general->plane_y = old_plane_x * sin(0.05) + general->plane_y * cos(0.05);
-		
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_LEFT))
 	{

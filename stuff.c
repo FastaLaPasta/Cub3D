@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stuff.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:47:20 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/06 16:25:53 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:35:32 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ int	texturemap3d(t_gen *gen)
 	gen->tabtex[3] = mlx_load_png(gen->map->we);
 	if (!gen->tabtex[3])
 		return (1);
-	gen->tabtex[4] = mlx_load_png("/Users/jgiampor/Desktop/Cub3D/Texture/PORTAL.png");// remplacer par le nom du fichier;
+	gen->tabtex[4] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL.png");// remplacer par le nom du fichier;
 	if (!gen->tabtex[4])
 		return (1);
-	gen->tabtex[5] = mlx_load_png("/Users/jgiampor/Desktop/Cub3D/Texture/PORTAL_R.png");// remplacer par le nom du fichier;
+	gen->tabtex[5] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL_R.png");// remplacer par le nom du fichier;
 	if (!gen->tabtex[5])
 		return (1);
-	gen->tabtex[6] = mlx_load_png("/Users/jgiampor/Desktop/Cub3D/Texture/PORTAL_C.png");// remplacer par le nom du fichier;
+	gen->tabtex[6] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL_C.png");// remplacer par le nom du fichier;
 	if (!gen->tabtex[6])
 		return (1);
 	gen->tabtex[7] = NULL;
