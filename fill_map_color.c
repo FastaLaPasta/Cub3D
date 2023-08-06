@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:08:39 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/05 15:38:52 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/06 15:12:24 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,33 @@
 
 void	create_image(t_gen *gen, t_img *img)
 {
+	uint32_t	i;
+	uint32_t	y;
+
 	img->flour_2d = mlx_new_image(gen->mlx, 16, 16);
 	img->wall_2d = mlx_new_image(gen->mlx, 16, 16);
-	// img->rambo_2d = mlx_new_image(gen->mlx, 32, 4);
-	for (uint32_t i = 0; i < img->flour_2d->width; ++i)
+	i = 0;
+	while (i < img->flour_2d->width)
 	{
-		for (uint32_t y = 0; y < img->flour_2d->height; ++y)
+		y = 0;
+		while (y < img->flour_2d->height)
+		{
 			mlx_put_pixel(img->flour_2d, i, y, 9843250);
+			y++;
+		}
+		i++;
 	}
-	for (uint32_t i = 0; i < img->wall_2d->width; ++i)
+	i = 0;
+	while (i < img->wall_2d->width)
 	{
-		for (uint32_t y = 0; y < img->wall_2d->height; ++y)
+		y = 0;
+		while (y < img->wall_2d->height)
+		{
 			mlx_put_pixel(img->wall_2d, i, y, 3289750);
+			y++;
+		}
+		i++;
 	}
-	// for (uint32_t i = 0; i < img->rambo_2d->width; ++i)
-	// {
-	// 	for (uint32_t y = 0; y < img->rambo_2d->height; ++y)
-	// 		mlx_put_pixel(gen->image, i, y, 1671160);
-	// }
 }
 
 t_img	*print_2d_map(t_gen *gen, t_img *img)
