@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/05 16:02:10 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:41:11 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,14 @@ int	raycasting_try(t_gen *gen)
 		while (draw_start < draw_end)
 		{
 			p = ((draw_start - true_haut) * 64) / line_height;
-			((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[side+2]->pixels)[p * 64 + texX];
+			if (side == 0 && step_x == -1)
+				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[3]->pixels)[p * 64 + texX];
+			else if (side == 0 && step_x == 1)
+				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[2]->pixels)[p * 64 + texX];
+			else if (step_y == -1)
+				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[0]->pixels)[p * 64 + texX];
+			else
+				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[1]->pixels)[p * 64 + texX];
 			draw_start++;
 		}
 		x++;
