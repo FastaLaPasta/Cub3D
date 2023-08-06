@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/05 16:41:11 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/06 15:27:11 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,14 @@ int	raycasting_try(t_gen *gen)
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	mlx_texture_t	*portal;
 
 	x = 0;
+	if ((int)floor(mlx_get_time() * 8) % 2 == 0)
+		portal = gen->tabtex[5];
+	else
+		portal = gen->tabtex[4];
+
 	while (x < 1080)
 	{
 		cam = 2 * x / (double)1080 - 1;
@@ -147,16 +153,24 @@ int	raycasting_try(t_gen *gen)
 		int p;
 		while (draw_start < draw_end)
 		{
-			p = ((draw_start - true_haut) * 64) / line_height;
-			if (side == 0 && step_x == -1)
-				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[3]->pixels)[p * 64 + texX];
-			else if (side == 0 && step_x == 1)
-				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[2]->pixels)[p * 64 + texX];
-			else if (step_y == -1)
-				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[0]->pixels)[p * 64 + texX];
-			else
-				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[1]->pixels)[p * 64 + texX];
-			draw_start++;
+				p = ((draw_start - true_haut) * 64) / line_height;
+				if (side == 0 && step_x == -1 && gen->map->map[map_y][map_x] != 'P' && gen->map->map[map_y][map_x] != 'Q')
+					((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[3]->pixels)[p * 64 + texX];
+				else if (side == 0 && step_x == 1 && gen->map->map[map_y][map_x] != 'P' && gen->map->map[map_y][map_x] != 'Q')
+					((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[2]->pixels)[p * 64 + texX];
+				else if (step_y == -1 && gen->map->map[map_y][map_x] != 'P' && gen->map->map[map_y][map_x] != 'Q')
+					((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[0]->pixels)[p * 64 + texX];
+				else if (gen->map->map[map_y][map_x] != 'P' && gen->map->map[map_y][map_x] != 'Q')
+					((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[1]->pixels)[p * 64 + texX];
+				else if (gen->map->map[map_y][map_x] == 'P')
+				{
+					((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[2]->pixels)[p * 64 + texX];
+					if (((uint32_t*)portal->pixels)[p * 64 + texX] != 0)
+						((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)portal->pixels)[p * 64 + texX];
+				}
+				else
+					((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[5]->pixels)[p * 64 + texX];
+				draw_start++;
 		}
 		x++;
 	}
@@ -217,36 +231,36 @@ void	ft_hook(void	*param)
 	{
 		fill_old_position(general);
 		if ((general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 + (int)general->dir_y][(int)general->px / 16]) == 0)
-			general->py += general->dir_y;
+			general->py += general->dir_y * general->mlx->delta_time * SPEED;
 		if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_x]) == 0)
-	 		general->px += general->dir_x;
+	 		general->px += general->dir_x * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_S))
 	{
 		fill_old_position(general);
 			if ((general->map->map[(int)general->py / 16][(int)general->px / 16 - (int)general->dir_x]) == '0' || ft_spawnvalid((general->map->map[(int)general->py / 16][(int)general->px / 16 - (int)general->dir_x])) == 0)
-		general->px -= general->dir_x;
+		general->px -= general->dir_x * general->mlx->delta_time * SPEED;
 			if ((general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 - (int)general->dir_y][(int)general->px / 16]) == 0)
-		general->py -= general->dir_y;
+		general->py -= general->dir_y * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_A))
 	{
 		fill_old_position(general);
 		if ((general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_y]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->dir_y]) == 0)
-			general->px -= general->plane_x;
+			general->px -= general->plane_x * general->mlx->delta_time * SPEED;
 		if ((general->map->map[(int)general->py / 16 + (int)general->dir_x][(int)general->px / 16]) == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 + (int)general->dir_x][(int)general->px / 16]) == 0)
-			general->py -= general->plane_y;
+			general->py -= general->plane_y * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
 	if (mlx_is_key_down(general->mlx, MLX_KEY_D))
 	{
 		fill_old_position(general);
 		if (general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->plane_x] == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)general->plane_x]) == 0)
-			general->px += general->plane_x;
+			general->px += general->plane_x * general->mlx->delta_time * SPEED;
 		if (general->map->map[(int)general->py / 16 + (int)general->plane_y][(int)general->px / 16] == '0' || ft_spawnvalid(general->map->map[(int)general->py / 16 + (int)general->plane_y][(int)general->px / 16]) == 0)
-			general->py += general->plane_y;
+			general->py += general->plane_y * general->mlx->delta_time *SPEED;
 		collision(general);
 	}
 
@@ -277,20 +291,29 @@ void	ft_hook(void	*param)
 
 void	texturemap3d(t_gen *gen)
 {
-	gen->tabtex = malloc(sizeof(mlx_texture_t) * 5);
+	gen->tabtex = malloc(sizeof(mlx_texture_t) * 8);
 	gen->tabtex[0] = mlx_load_png(gen->map->no);
 	if (!gen->tabtex[0])
 		return ;
 	gen->tabtex[1] = mlx_load_png(gen->map->so);
-	if (!gen->tabtex[0])
+	if (!gen->tabtex[1])
 		return ;
 	gen->tabtex[2] = mlx_load_png(gen->map->ea);
-	if (!gen->tabtex[0])
+	if (!gen->tabtex[2])
 		return ;
 	gen->tabtex[3] = mlx_load_png(gen->map->we);
-	if (!gen->tabtex[0])
+	if (!gen->tabtex[3])
 		return ;
-	gen->tabtex[4] = NULL;
+	gen->tabtex[4] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL.png");// remplacer par le nom du fichier;
+	if (!gen->tabtex[4])
+		return ;
+	gen->tabtex[5] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL_R.png");// remplacer par le nom du fichier;
+	if (!gen->tabtex[5])
+		return ;
+	gen->tabtex[6] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL_C.png");// remplacer par le nom du fichier;
+	if (!gen->tabtex[6])
+		return ;
+	gen->tabtex[7] = NULL;
 }
 
 int32_t	main(int32_t argc, char **argv)

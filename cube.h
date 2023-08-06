@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/05 16:18:05 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/06 14:59:09 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "Libft/libft.h"
-# define PI 3.1415926535
-# define DR 0.0174533
+# define PI 	3.1415926535
+# define DR 	0.0174533
+# define SPEED	60
 
 typedef struct s_map
 {
@@ -66,6 +67,7 @@ typedef struct s_gen
 	double			ra;
 	float			old_px;
 	float			old_py;
+	float			time;
 	mlx_texture_t	**tabtex;
 	int				cardinal_case_x;
 	int				cardinal_case_y;
