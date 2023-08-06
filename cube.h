@@ -48,7 +48,6 @@ typedef struct s_img
 	mlx_image_t	*rambo_2d;
 }	t_img;
 
-
 typedef struct s_gen
 {
 	mlx_t			*mlx;
@@ -86,10 +85,7 @@ int		fill_map_texture(t_map *map, int fd);
 int		choose_texture(t_map *map, char **line);
 long	choose_color(char **line);
 int		ft_strcmp(char *s1, char *s2);
-
-/*Print la map en 2D*/
 t_img	*print_2d_map(t_gen *gen, t_img *img);
-
 int		ft_exten(char *f, char *ex);
 void	ft_mapadd2(char **map);
 int		ft_caravalid(char c);
@@ -102,5 +98,10 @@ int		ft_spawnvalid(char c);
 void	ft_rederror(char *s);
 void	free_gnl(char *line, char *linenl, int fd, char **splt);
 void	ft_endoffile(int fd);
+void	ft_hook(void	*param);
+void	fill_old_position(t_gen *gen);
+void	collision(t_gen *gen);
+int		texturemap3d(t_gen *gen);
+int		raycasting_try(t_gen *gen);
 
 #endif

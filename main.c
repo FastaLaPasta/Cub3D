@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
 /*   Updated: 2023/08/06 15:27:11 by sboulogn         ###   ########.fr       */
@@ -15,7 +15,7 @@
 void	init(t_gen *gen)
 {
 	float	old_dir_x;
-	float 	old_plane_x;
+	float	old_plane_x;
 
 	gen->dir_x = 1;
 	gen->dir_y = 0;
@@ -322,8 +322,6 @@ int32_t	main(int32_t argc, char **argv)
 	t_map	map;
 	t_img	img;
 
-	(void)argv;
-	(void)argc;
 	if (fill_map_struct(&map, argv) == 1)
 		return (1);
 	general.map = &map;
@@ -333,7 +331,8 @@ int32_t	main(int32_t argc, char **argv)
 		(1080, 720, "MLX42", true);
 	if (!general.mlx)
 		return (EXIT_FAILURE);
-	texturemap3d(&general);
+	if (texturemap3d(&general) == 1)
+		return (ft_freemap(general.map), EXIT_SUCCESS);
 	general.image = mlx_new_image(general.mlx, 1080, 720);
 	mlx_image_to_window(general.mlx, general.image, 0, 0);
 	general.img = print_2d_map(&general, &img);
@@ -342,6 +341,7 @@ int32_t	main(int32_t argc, char **argv)
 	mlx_loop(general.mlx);
 	mlx_terminate(general.mlx);
 	ft_freemap(general.map);
+	free(general.tabtex);
 	// system("leaks Game");
 	return (EXIT_SUCCESS);
 }
