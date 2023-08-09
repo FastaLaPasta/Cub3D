@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/09 14:44:55 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:30:39 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	fill_old_position(t_gen *gen);
 void	collision(t_gen *gen);
 int		texturemap3d(t_gen *gen);
 int		raycasting_try(t_gen *gen);
-int mini_m_case_len(t_gen *gen);
+int		mc(t_gen *gen);
+void	init(t_gen *gen);
 
 #endif

@@ -3,53 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/09 14:16:12 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:32:09 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
-
-void	init(t_gen *gen)
-{
-	float	old_dir_x;
-	float	old_plane_x;
-
-	gen->dir_x = 1;
-	gen->dir_y = 0;
-	gen->plane_x = 0;
-	gen->plane_y = 0.66;
-	gen->speed =  (60 * mini_m_case_len(gen)) / 15;
-	if (gen->map->map[gen->cardinal_case_y][gen->cardinal_case_x] == 'N')
-	{
-		old_dir_x = gen->dir_x;
-		gen->dir_x = gen->dir_x * cos (-1.575) - gen->dir_y * sin(-1.575);
-		gen->dir_y = old_dir_x * sin(-1.575) + gen->dir_y * cos(-1.575);
-		old_plane_x = gen->plane_x;
-		gen->plane_x = gen->plane_x * cos(-1.575) - gen->plane_y * sin(-1.575);
-		gen->plane_y = old_plane_x * sin(-1.575) + gen->plane_y * cos(-1.575);
-	}
-	else if (gen->map->map[gen->cardinal_case_y][gen->cardinal_case_x] == 'W')
-	{
-		old_dir_x = gen->dir_x;
-		gen->dir_x = gen->dir_x * cos (-3.15) - gen->dir_y * sin(-3.15);
-		gen->dir_y = old_dir_x * sin(-3.15) + gen->dir_y * cos(-3.15);
-		old_plane_x = gen->plane_x;
-		gen->plane_x = gen->plane_x * cos(-3.15) - gen->plane_y * sin(-3.15);
-		gen->plane_y = old_plane_x * sin(-3.15) + gen->plane_y * cos(-3.15);
-	}
-	else if (gen->map->map[gen->cardinal_case_y][gen->cardinal_case_x] == 'S')
-	{
-		old_dir_x = gen->dir_x;
-		gen->dir_x = gen->dir_x * cos (1.575) - gen->dir_y * sin(1.575);
-		gen->dir_y = old_dir_x * sin(1.575) + gen->dir_y * cos(1.575);
-		old_plane_x = gen->plane_x;
-		gen->plane_x = gen->plane_x * cos(1.575) - gen->plane_y * sin(1.575);
-		gen->plane_y = old_plane_x * sin(1.575) + gen->plane_y * cos(1.575);
-	}
-}
 
 int32_t	main(int32_t argc, char **argv)
 {
@@ -77,6 +38,5 @@ int32_t	main(int32_t argc, char **argv)
 	mlx_terminate(general.mlx);
 	ft_freemap(general.map);
 	free(general.tabtex);
-	// system("leaks Game");
 	return (EXIT_SUCCESS);
 }

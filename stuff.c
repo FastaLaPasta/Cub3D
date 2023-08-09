@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:47:20 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 16:18:06 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:27:12 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	fill_old_position(t_gen *gen)
 
 void	collision(t_gen *gen)
 {
-	if (gen->map->map[(int)gen->py /  mini_m_case_len(gen)][(int)gen->px /  mini_m_case_len(gen)] >= '1' &&
-		ft_spawnvalid(gen->map->map[(int)gen->py /  mini_m_case_len(gen)][(int)gen->px /  mini_m_case_len(gen)]) == 1 && gen->map->map[(int)gen->py /  mini_m_case_len(gen)][(int)gen->px /  mini_m_case_len(gen)] != 'P')
+	if (gen->map->map[(int)gen->py /  mc(gen)][(int)gen->px /  mc(gen)] >= '1' &&
+		ft_spawnvalid(gen->map->map[(int)gen->py /  mc(gen)][(int)gen->px /  mc(gen)]) == 1 && gen->map->map[(int)gen->py /  mc(gen)][(int)gen->px /  mc(gen)] != 'P')
 	{
 		gen->px = gen->old_px;
 		gen->py = gen->old_py;
