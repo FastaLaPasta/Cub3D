@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:39 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 16:16:12 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:27:12 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	into_door(t_gen *gen)
 {
-	if (gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen)] == 'Q')
-		gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen)] = 'P';
+	if (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen)] == 'Q')
+		gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen)] = 'P';
 }
 
 void	ft_hook(void	*param)
@@ -62,10 +62,10 @@ void	ft_hook(void	*param)
 	// angle de vision
 	raycasting_try(gen);
 	i = 0;
-	while ((int)i < mini_m_case_len(gen))
+	while ((int)i < mc(gen))
 	{
 		y = 0;
-		while ((int)y < mini_m_case_len(gen))
+		while ((int)y < mc(gen))
 		{
 			mlx_put_pixel(gen->image, gen->px + i, gen->py + y, 1671160);
 			y++;
@@ -78,54 +78,54 @@ void	ft_hook(void	*param)
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_W))
 	{
 		fill_old_position(gen);
-		if ((gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->dir_y][(int)gen->px / mini_m_case_len(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->dir_y][(int)gen->px / mini_m_case_len(gen)]) == 0 || (gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->dir_y][(int)gen->px / mini_m_case_len(gen)]) == 'P')
+		if ((gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y][(int)gen->px / mc(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y][(int)gen->px / mc(gen)]) == 0 || (gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y][(int)gen->px / mc(gen)]) == 'P')
 			gen->py += gen->dir_y * gen->mlx->delta_time * gen->speed;
-		if ((gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->dir_x]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->dir_x]) == 0 || (gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->dir_x]) == 'P')
+		if ((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_x]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_x]) == 0 || (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_x]) == 'P')
 	 		gen->px += gen->dir_x * gen->mlx->delta_time * gen->speed;
 		collision(gen);
 	}
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_S))
 	{
 		fill_old_position(gen);
-			if ((gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) - (int)gen->dir_x]) == '0' || ft_spawnvalid((gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) - (int)gen->dir_x])) == 0 || (gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) - (int)gen->dir_x]) == 'P')
+			if ((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) - (int)gen->dir_x]) == '0' || ft_spawnvalid((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) - (int)gen->dir_x])) == 0 || (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) - (int)gen->dir_x]) == 'P')
 		gen->px -= gen->dir_x * gen->mlx->delta_time * gen->speed;
-			if ((gen->map->map[(int)gen->py / mini_m_case_len(gen) - (int)gen->dir_y][(int)gen->px / mini_m_case_len(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mini_m_case_len(gen) - (int)gen->dir_y][(int)gen->px / mini_m_case_len(gen)]) == 0 || (gen->map->map[(int)gen->py / mini_m_case_len(gen) - (int)gen->dir_y][(int)gen->px / mini_m_case_len(gen)]) == 'P')
+			if ((gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y][(int)gen->px / mc(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y][(int)gen->px / mc(gen)]) == 0 || (gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y][(int)gen->px / mc(gen)]) == 'P')
 		gen->py -= gen->dir_y * gen->mlx->delta_time * gen->speed;
 		collision(gen);
 	}
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_A))
 	{
 		fill_old_position(gen);
-		if ((gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->dir_y]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->dir_y]) == 0 || (gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->dir_y]) == 'P')
+		if ((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_y]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_y]) == 0 || (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_y]) == 'P')
 			gen->px -= gen->plane_x * gen->mlx->delta_time * gen->speed;
-		if ((gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->dir_x][(int)gen->px / mini_m_case_len(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->dir_x][(int)gen->px / mini_m_case_len(gen)]) == 0 || (gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->dir_x][(int)gen->px / mini_m_case_len(gen)]) == 'P')
+		if ((gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_x][(int)gen->px / mc(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_x][(int)gen->px / mc(gen)]) == 0 || (gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_x][(int)gen->px / mc(gen)]) == 'P')
 			gen->py -= gen->plane_y * gen->mlx->delta_time * gen->speed;
 		collision(gen);
 	}
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_D))
 	{
 		fill_old_position(gen);
-		if (gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->plane_x] == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->plane_x]) == 0 || gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)gen->plane_x] == 'P')
+		if (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->plane_x] == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->plane_x]) == 0 || gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->plane_x] == 'P')
 			gen->px += gen->plane_x * gen->mlx->delta_time * gen->speed;
-		if (gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->plane_y][(int)gen->px / mini_m_case_len(gen)] == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->plane_y][(int)gen->px / mini_m_case_len(gen)]) == 0 || gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)gen->plane_y][(int)gen->px / mini_m_case_len(gen)] == 'P')
+		if (gen->map->map[(int)gen->py / mc(gen) + (int)gen->plane_y][(int)gen->px / mc(gen)] == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) + (int)gen->plane_y][(int)gen->px / mc(gen)]) == 0 || gen->map->map[(int)gen->py / mc(gen) + (int)gen->plane_y][(int)gen->px / mc(gen)] == 'P')
 			gen->py += gen->plane_y * gen->mlx->delta_time * gen->speed;
 		collision(gen);
 	}
 
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_E))
 	{
-			if ((gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)round(gen->dir_y)][(int)gen->px / mini_m_case_len(gen)]) == 'Q')
-				(gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)round(gen->dir_y)][(int)gen->px / mini_m_case_len(gen)]) = 'P';
-			if ((gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)round(gen->dir_x)]) == 'Q')
-				(gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)round(gen->dir_x)]) = 'P';
+			if ((gen->map->map[(int)gen->py / mc(gen) + (int)round(gen->dir_y)][(int)gen->px / mc(gen)]) == 'Q')
+				(gen->map->map[(int)gen->py / mc(gen) + (int)round(gen->dir_y)][(int)gen->px / mc(gen)]) = 'P';
+			if ((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)round(gen->dir_x)]) == 'Q')
+				(gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)round(gen->dir_x)]) = 'P';
 			into_door(gen);
 	}
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_Q))
 	{
-			if ((gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)round(gen->dir_y)][(int)gen->px / mini_m_case_len(gen)]) == 'P')
-				(gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)round(gen->dir_y)][(int)gen->px / mini_m_case_len(gen)]) = 'Q';
-			if ((gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)round(gen->dir_x)]) == 'P')
-			(gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)round(gen->dir_x)]) = 'Q';
+			if ((gen->map->map[(int)gen->py / mc(gen) + (int)round(gen->dir_y)][(int)gen->px / mc(gen)]) == 'P')
+				(gen->map->map[(int)gen->py / mc(gen) + (int)round(gen->dir_y)][(int)gen->px / mc(gen)]) = 'Q';
+			if ((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)round(gen->dir_x)]) == 'P')
+			(gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)round(gen->dir_x)]) = 'Q';
 			into_door(gen);
 	}
 
