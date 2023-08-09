@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   stuff.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:47:20 by jgiampor          #+#    #+#             */
 /*   Updated: 2023/08/09 16:18:06 by sboulogn         ###   ########.fr       */

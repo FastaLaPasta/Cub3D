@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:39 by jgiampor          #+#    #+#             */
 /*   Updated: 2023/08/09 16:16:12 by sboulogn         ###   ########.fr       */
@@ -111,6 +111,7 @@ void	ft_hook(void	*param)
 			gen->py += gen->plane_y * gen->mlx->delta_time * gen->speed;
 		collision(gen);
 	}
+
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_E))
 	{
 			if ((gen->map->map[(int)gen->py / mini_m_case_len(gen) + (int)round(gen->dir_y)][(int)gen->px / mini_m_case_len(gen)]) == 'Q')
@@ -127,7 +128,6 @@ void	ft_hook(void	*param)
 			(gen->map->map[(int)gen->py / mini_m_case_len(gen)][(int)gen->px / mini_m_case_len(gen) + (int)round(gen->dir_x)]) = 'Q';
 			into_door(gen);
 	}
-
 
 	//cam
 
