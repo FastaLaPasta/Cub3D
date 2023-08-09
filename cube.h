@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/09 16:30:39 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:25:23 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_img
 	mlx_image_t	*wall_2d;
 	mlx_image_t	*flour_2d;
 	mlx_image_t	*rambo_2d;
-	mlx_image_t *door_2d;
+	mlx_image_t	*door_2d;
 }	t_img;
 
 typedef struct s_gen
@@ -73,6 +73,35 @@ typedef struct s_gen
 	int				cardinal_case_x;
 	int				cardinal_case_y;
 }	t_gen;
+
+typedef struct s_ray
+{
+	int			x;
+	double		cam;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	double		perpwalldist;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	double		wallx;
+	long long	l;
+	long long	h;
+	long long	w;
+	long long	texx;
+	long long	true_haut;
+	long long	p;
+	long long	portal;
+	int			lp;
+}	t_ray;
 
 int		fill_map_struct(t_map *map, char **argv);
 char	**fill_map(t_map *gen, char *path);
@@ -107,5 +136,6 @@ int		texturemap3d(t_gen *gen);
 int		raycasting_try(t_gen *gen);
 int		mc(t_gen *gen);
 void	init(t_gen *gen);
+void	raynorme4(t_gen *gen, t_ray	*ray);
 
 #endif

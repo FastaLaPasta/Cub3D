@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:59:10 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:48:36 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:44:40 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	ft_exten(char *f, char *ex)
 	free(s);
 	return (0);
 }
-
 
 int	fill_map_struct(t_map *map, char **argv)
 {
