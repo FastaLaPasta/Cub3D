@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/06 14:59:09 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:44:55 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "Libft/libft.h"
-# define PI 	3.1415926535
-# define DR 	0.0174533
+# define WIDTH	1080
+# define HEIGHT	720
 # define SPEED	60
 
 typedef struct s_map
@@ -46,6 +46,7 @@ typedef struct s_img
 	mlx_image_t	*wall_2d;
 	mlx_image_t	*flour_2d;
 	mlx_image_t	*rambo_2d;
+	mlx_image_t *door_2d;
 }	t_img;
 
 typedef struct s_gen
@@ -67,6 +68,7 @@ typedef struct s_gen
 	float			old_px;
 	float			old_py;
 	float			time;
+	int				speed;
 	mlx_texture_t	**tabtex;
 	int				cardinal_case_x;
 	int				cardinal_case_y;
@@ -103,5 +105,6 @@ void	fill_old_position(t_gen *gen);
 void	collision(t_gen *gen);
 int		texturemap3d(t_gen *gen);
 int		raycasting_try(t_gen *gen);
+int mini_m_case_len(t_gen *gen);
 
 #endif

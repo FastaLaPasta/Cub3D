@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:56:23 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 15:14:28 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:26:04 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	raycasting_try(t_gen *gen)
 		cam = 2 * x / (double)1080 - 1;
 		ray_dir_x = gen->dir_x + gen->plane_x * cam;
 		ray_dir_y = gen->dir_y + gen->plane_y * cam;
-		map_x = (int)gen->px / 16;
-		map_y = (int)gen->py / 16;
+		map_x = (int)gen->px / mini_m_case_len(gen);
+		map_y = (int)gen->py / mini_m_case_len(gen);
 		if (ray_dir_x == 0)
 			gen->delta_x = 1e30;
 		else
@@ -63,22 +63,22 @@ int	raycasting_try(t_gen *gen)
 		if (ray_dir_x < 0)
 		{
 			step_x = -1;
-			side_dist_x = (gen->px / 16 - map_x) * gen->delta_x;
+			side_dist_x = (gen->px / mini_m_case_len(gen) - map_x) * gen->delta_x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist_x = (map_x + 1. - gen->px / 16) * gen->delta_x;
+			side_dist_x = (map_x + 1. - gen->px / mini_m_case_len(gen)) * gen->delta_x;
 		}
 		if (ray_dir_y < 0)
 		{
 			step_y = -1;
-			side_dist_y = (gen->py / 16 - map_y) * gen->delta_y;
+			side_dist_y = (gen->py / mini_m_case_len(gen) - map_y) * gen->delta_y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist_y = (map_y + 1. - gen->py / 16) * gen->delta_y;
+			side_dist_y = (map_y + 1. - gen->py / mini_m_case_len(gen)) * gen->delta_y;
 		}
 		while (hit == 0)
 		{
@@ -146,9 +146,9 @@ int	raycasting_try(t_gen *gen)
 			w = 6;
 		}
 		if (side == 0)
-			wallX = gen->py / 16 + perpwalldist * ray_dir_y;
+			wallX = gen->py / mini_m_case_len(gen) + perpwalldist * ray_dir_y;
 		else
-			wallX = gen->px / 16 + perpwalldist * ray_dir_x;
+			wallX = gen->px / mini_m_case_len(gen) + perpwalldist * ray_dir_x;
 		wallX -= floor((wallX));
 		texX = (int)(wallX * (double)l);
 		if (side == 0 && ray_dir_x > 0)
