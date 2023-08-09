@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 12:10:04 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/27 16:03:17 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:40:28 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,6 @@ int	ft_checkerr(t_map *map)
 	if (ft_spawn(map) == -1)
 		return (ft_rederror("Multi Spawn ou 0\n"), 1);
 	if (flood_fill(map->safe, map->startl, map->startc, '3') == 1)
-		return (ft_rederror("Out of boundst\n"), 1);
+		return (ft_rederror("Out of bounds\n"), 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 13:08:39 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/06 15:12:24 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:23:34 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void	create_image(t_gen *gen, t_img *img)
 	}
 }
 
+void	dpos(t_gen *gen, int32_t x, int32_t y)
+{
+	gen->px = x * 16;
+	gen->py = y * 16;
+	gen->cardinal_case_x = x;
+	gen->cardinal_case_y = y;
+}
+
 t_img	*print_2d_map(t_gen *gen, t_img *img)
 {
 	int32_t	y;
@@ -60,10 +68,7 @@ t_img	*print_2d_map(t_gen *gen, t_img *img)
 		else if (ft_spawnvalid(gen->map->map[y][x]) == 0)
 		{
 			mlx_image_to_window(gen->mlx, img->flour_2d, x * 16, y * 16);
-			gen->px = x * 16;
-			gen->py = y * 16;
-			gen->cardinal_case_x = x;
-			gen->cardinal_case_y = y;
+			dpos(gen, x, y);
 		}
 		x++;
 		if (gen->map->map[y][x] == '\0')

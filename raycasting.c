@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:56:23 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 13:49:33 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:14:28 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	raycasting_try(t_gen *gen)
 	int		draw_start;
 	int		draw_end;
 	double	wallX;
-	int		l;
-	int		h;
-	int		w;
-	int		texX;
-	int		true_haut;
-	int		p;
-	int		portal;
+	long long		l;
+	long long		h;
+	long long		w;
+	long long		texX;
+	long long		true_haut;
+	long long		p;
+	long long		portal;
 
 	x = 0;
 	if ((int)floor(mlx_get_time() * 8) % 2 == 0)

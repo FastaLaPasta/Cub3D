@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/06 15:35:04 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:19:28 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int32_t	main(int32_t argc, char **argv)
 	if (!general.mlx)
 		return (EXIT_FAILURE);
 	if (texturemap3d(&general) == 1)
-		return (ft_freemap(general.map), EXIT_SUCCESS);
+		return (ft_freemap(general.map), system("leaks Game"), EXIT_FAILURE);
 	general.image = mlx_new_image(general.mlx, 1080, 720);
 	mlx_image_to_window(general.mlx, general.image, 0, 0);
 	general.img = print_2d_map(&general, &img);
@@ -75,7 +75,6 @@ int32_t	main(int32_t argc, char **argv)
 	mlx_loop(general.mlx);
 	mlx_terminate(general.mlx);
 	ft_freemap(general.map);
-	free(general.tabtex);
-	// system("leaks Game");
+	system("leaks Game");
 	return (EXIT_SUCCESS);
 }
