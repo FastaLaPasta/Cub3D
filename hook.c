@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:39 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 14:35:50 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:16:12 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,6 @@ void	ft_hook(void	*param)
 			into_door(gen);
 	}
 
-	// else if (mlx_is_key_down(gen->mlx, MLX_KEY_SPACE) && (gen->map->map[(int)gen->py / 16 - 1][(int)gen->px / 16]) == 'P')
-	// {
-	// 	gen->map->map[(int)gen->py / 16 - 1][(int)gen->px / 16] = 'Q';
-	// }
-	
 
 	//cam
 
