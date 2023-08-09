@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:36:48 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/05 16:14:40 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:35:43 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	ft_structmapverif(t_map *map)
 		return (ft_rederror("Manque texture EA\n"), 1);
 	if (map->f < 0)
 		return (ft_rederror("Probleme de colour sur F\n"), 1);
-	printf("%lx\n", map->c);
 	if (map->c < 0)
 		return (ft_rederror("Probleme de colour sur C\n"), 1);
 	if (map->map == NULL)
