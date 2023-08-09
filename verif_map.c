@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:33:44 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/07/30 18:20:35 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:23:01 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_spawnvalid(char c)
 int	ft_caravalid(char c)
 {
 	if (ft_spawnvalid(c) == 0 || c == '0' || c == '1' || c == '2' || c == '4'
-		|| c == '3' || c == '5')
+		|| c == '3' || c == '5' || c == 'P' || c == 'Q')
 		return (0);
 	return (1);
 }
