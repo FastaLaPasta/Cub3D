@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 14:46:08 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/06 13:43:35 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:32:21 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ long	choose_color(char **line)
 		return (2);
 	x = get_rgba(ft_atoi(color[0]), ft_atoi(color[1]),
 			ft_atoi(color[2]), 255);
-	printf("%lx\n", x);		
 	ft_freedchar(color);
 	return (x);
 }

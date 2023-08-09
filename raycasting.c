@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:56:23 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/06 16:12:44 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:49:33 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int	raycasting_try(t_gen *gen)
 			if (gen->map->map[map_y][map_x] == 'P')
 			{
 				int lp = ((draw_start - true_haut) * 64) / line_height;	
-				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[2]->pixels)[lp * 64 + texX];
+				((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[7]->pixels)[lp * 64 + texX];
 				if (((uint32_t*)gen->tabtex[w]->pixels)[p * l + texX] != 0)
 						((uint32_t*)gen->image->pixels)[draw_start * 1080 + x] = ((uint32_t*)gen->tabtex[w]->pixels)[p * l + texX];
 

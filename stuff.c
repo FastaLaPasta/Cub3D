@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stuff.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:47:20 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/06 16:35:32 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:48:28 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	collision(t_gen *gen)
 
 int	texturemap3d(t_gen *gen)
 {
-	gen->tabtex = malloc(sizeof(mlx_texture_t) * 8);
+	gen->tabtex = malloc(sizeof(mlx_texture_t) * 9);
 	gen->tabtex[0] = mlx_load_png(gen->map->no);
 	if (!gen->tabtex[0])
 		return (1);
@@ -44,15 +44,18 @@ int	texturemap3d(t_gen *gen)
 	gen->tabtex[3] = mlx_load_png(gen->map->we);
 	if (!gen->tabtex[3])
 		return (1);
-	gen->tabtex[4] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL.png");// remplacer par le nom du fichier;
+	gen->tabtex[4] = mlx_load_png("Texture/PORTAL.png");
 	if (!gen->tabtex[4])
 		return (1);
-	gen->tabtex[5] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL_R.png");// remplacer par le nom du fichier;
+	gen->tabtex[5] = mlx_load_png("Texture/PORTAL_R.png");
 	if (!gen->tabtex[5])
 		return (1);
-	gen->tabtex[6] = mlx_load_png("/Users/sboulogn/Desktop/start/Texture/PORTAL_C.png");// remplacer par le nom du fichier;
+	gen->tabtex[6] = mlx_load_png("Texture/PORTAL_C.png");
 	if (!gen->tabtex[6])
 		return (1);
-	gen->tabtex[7] = NULL;
+	gen->tabtex[7] = mlx_load_png("Texture/BRICK_2A.png");
+	if (!gen->tabtex[7])
+		return (1);
+	gen->tabtex[8] = NULL;
 	return (0);
 }

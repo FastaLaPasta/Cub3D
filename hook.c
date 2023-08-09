@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:39 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 13:24:07 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:32:17 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	ft_hook(void	*param)
 			general->py += general->plane_y * general->mlx->delta_time * SPEED;
 		collision(general);
 	}
-	printf("%c\n", general->map->map[(int)general->py / 16][(int)general->px / 16]);
 	if (mlx_is_key_down(general->mlx, MLX_KEY_E))
 	{
 			if ((general->map->map[(int)general->py / 16 + (int)round(general->dir_y)][(int)general->px / 16]) == 'Q')
@@ -130,13 +129,6 @@ void	ft_hook(void	*param)
 			(general->map->map[(int)general->py / 16][(int)general->px / 16 + (int)round(general->dir_x)]) = 'Q';
 			into_door(general);
 	}
-
-	// else if (mlx_is_key_down(general->mlx, MLX_KEY_SPACE) && (general->map->map[(int)general->py / 16 - 1][(int)general->px / 16]) == 'P')
-	// {
-	// 	general->map->map[(int)general->py / 16 - 1][(int)general->px / 16] = 'Q';
-	// }
-	
-
 	//cam
 
 	double	old_dir_x;
