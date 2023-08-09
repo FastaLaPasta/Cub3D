@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/06 15:35:04 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:16:12 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init(t_gen *gen)
 	gen->dir_y = 0;
 	gen->plane_x = 0;
 	gen->plane_y = 0.66;
+	gen->speed =  (60 * mini_m_case_len(gen)) / 15;
 	if (gen->map->map[gen->cardinal_case_y][gen->cardinal_case_x] == 'N')
 	{
 		old_dir_x = gen->dir_x;
