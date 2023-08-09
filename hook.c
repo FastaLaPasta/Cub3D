@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:43:39 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 16:27:12 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:27:31 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,46 @@ void	into_door(t_gen *gen)
 {
 	if (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen)] == 'Q')
 		gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen)] = 'P';
+}
+
+void	press_w(t_gen *gen)
+{
+	fill_old_position(gen);
+	if ((gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y]
+			[(int)gen->px / mc(gen)]) == '0'
+		|| ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y]
+			[(int)gen->px / mc(gen)]) == 0
+		|| (gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y]
+			[(int)gen->px / mc(gen)]) == 'P')
+		gen->py += gen->dir_y * gen->mlx->delta_time * gen->speed;
+	if ((gen->map->map[(int)gen->py / mc(gen)]
+			[(int)gen->px / mc(gen) + (int)gen->dir_x]) == '0'
+		|| ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen)]
+			[(int)gen->px / mc(gen) + (int)gen->dir_x]) == 0
+		|| (gen->map->map[(int)gen->py / mc(gen)]
+			[(int)gen->px / mc(gen) + (int)gen->dir_x]) == 'P')
+		gen->px += gen->dir_x * gen->mlx->delta_time * gen->speed;
+	collision(gen);
+}
+
+void	press_s(t_gen *gen)
+{
+	fill_old_position(gen);
+	if ((gen->map->map[(int)gen->py / mc(gen)]
+			[(int)gen->px / mc(gen) - (int)gen->dir_x]) == '0'
+		|| ft_spawnvalid((gen->map->map[(int)gen->py / mc(gen)]
+				[(int)gen->px / mc(gen) - (int)gen->dir_x])) == 0
+		|| (gen->map->map[(int)gen->py / mc(gen)]
+			[(int)gen->px / mc(gen) - (int)gen->dir_x]) == 'P')
+		gen->px -= gen->dir_x * gen->mlx->delta_time * gen->speed;
+	if ((gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y]
+			[(int)gen->px / mc(gen)]) == '0' 
+		|| ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y]
+			[(int)gen->px / mc(gen)]) == 0
+		|| (gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y]
+			[(int)gen->px / mc(gen)]) == 'P')
+	gen->py -= gen->dir_y * gen->mlx->delta_time * gen->speed;
+	collision(gen);
 }
 
 void	ft_hook(void	*param)
@@ -76,23 +116,9 @@ void	ft_hook(void	*param)
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(gen->mlx);
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_W))
-	{
-		fill_old_position(gen);
-		if ((gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y][(int)gen->px / mc(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y][(int)gen->px / mc(gen)]) == 0 || (gen->map->map[(int)gen->py / mc(gen) + (int)gen->dir_y][(int)gen->px / mc(gen)]) == 'P')
-			gen->py += gen->dir_y * gen->mlx->delta_time * gen->speed;
-		if ((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_x]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_x]) == 0 || (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) + (int)gen->dir_x]) == 'P')
-	 		gen->px += gen->dir_x * gen->mlx->delta_time * gen->speed;
-		collision(gen);
-	}
+		press_w(gen);
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_S))
-	{
-		fill_old_position(gen);
-			if ((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) - (int)gen->dir_x]) == '0' || ft_spawnvalid((gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) - (int)gen->dir_x])) == 0 || (gen->map->map[(int)gen->py / mc(gen)][(int)gen->px / mc(gen) - (int)gen->dir_x]) == 'P')
-		gen->px -= gen->dir_x * gen->mlx->delta_time * gen->speed;
-			if ((gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y][(int)gen->px / mc(gen)]) == '0' || ft_spawnvalid(gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y][(int)gen->px / mc(gen)]) == 0 || (gen->map->map[(int)gen->py / mc(gen) - (int)gen->dir_y][(int)gen->px / mc(gen)]) == 'P')
-		gen->py -= gen->dir_y * gen->mlx->delta_time * gen->speed;
-		collision(gen);
-	}
+		press_s(gen);
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_A))
 	{
 		fill_old_position(gen);
