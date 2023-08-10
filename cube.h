@@ -6,7 +6,7 @@
 /*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/09 17:28:34 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/10 12:56:28 by sboulogn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,16 @@ int		raycasting_try(t_gen *gen);
 int		mc(t_gen *gen);
 void	init(t_gen *gen);
 void	raynorme4(t_gen *gen, t_ray	*ray);
+void	press_w(t_gen *gen);
+void	press_s(t_gen *gen);
+void	press_a(t_gen *gen);
+void	press_d(t_gen *gen);
+void	press_e(t_gen *gen);
+void	press_q(t_gen *gen);
+void	into_door(t_gen *gen);
+void	press_left(t_gen *gen);
+void	press_right(t_gen *gen);
+void	create_side(t_gen *gen, uint32_t y_start, uint32_t end_y, long color);
+void	event(t_gen *gen);
 
 #endif
