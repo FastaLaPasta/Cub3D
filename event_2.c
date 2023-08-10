@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 12:38:54 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/10 13:00:37 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:19:56 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ void	event(t_gen *gen)
 		press_right(gen);
 	if (mlx_is_key_down(gen->mlx, MLX_KEY_LEFT))
 		press_left(gen);
+	mouse_move(gen);
 }

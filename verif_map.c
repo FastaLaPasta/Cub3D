@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 12:33:44 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 14:39:04 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:34:32 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_mapadd2(char **map)
 			if (ft_caravalid(map[x][y]) == 1)
 			{
 				if (map[x][y] == ' ')
-					map[x][y] = '2';
+					map[x][y] = '0';
 			}
 			y++;
 		}

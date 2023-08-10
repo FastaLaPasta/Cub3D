@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sboulogn <sboulogn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 14:37:31 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/10 12:56:28 by sboulogn         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:15:11 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ void	press_left(t_gen *gen);
 void	press_right(t_gen *gen);
 void	create_side(t_gen *gen, uint32_t y_start, uint32_t end_y, long color);
 void	event(t_gen *gen);
+void	mouse_move(t_gen *gen);
 
 #endif

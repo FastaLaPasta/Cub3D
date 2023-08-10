@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:48:25 by jgiampor          #+#    #+#             */
-/*   Updated: 2023/08/09 16:31:10 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/10 15:22:46 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	inits(t_gen *gen)
 
 void	init(t_gen *gen)
 {
+	mlx_set_cursor_mode(gen->mlx, MLX_MOUSE_HIDDEN);
 	gen->dir_x = 1;
 	gen->dir_y = 0;
 	gen->plane_x = 0;
