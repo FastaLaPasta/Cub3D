@@ -6,7 +6,7 @@
 /*   By: jgiampor <jgiampor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 13:43:26 by sboulogn          #+#    #+#             */
-/*   Updated: 2023/08/10 16:00:42 by jgiampor         ###   ########.fr       */
+/*   Updated: 2023/08/26 12:58:02 by jgiampor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	free_text(t_gen *gen)
 		mlx_delete_texture(gen->tabtex[i]);
 		i++;
 	}
+	free(gen->tabtex);
 }
 
 int32_t	main(int32_t argc, char **argv)
